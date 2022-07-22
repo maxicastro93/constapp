@@ -26,17 +26,17 @@ public class Usuario {
     @Getter @Setter @Column(name = "apellido")
     private String apellido;
 
-    @Getter @Setter @Column(name = "email")
-    private String email;
-
-    @Getter @Setter @Column(name = "telefono")
-    private String telefono;
+    @Getter @Setter @Column(name = "nickname")
+    private String nickname;
 
     @Getter @Setter @Column(name = "password")
     private String password;
 
-    @Getter @Setter @Column(name = "empresa")
-    private String empresa;
+    @Getter @Setter @Column(name = "rol")
+    private String rol;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa_id;
 
 }

@@ -1,0 +1,8 @@
+constApp\web\controllers\AuthController.class
+constApp\web\Utils\JWTUtil.class
+constApp\web\models\OrdenDeCompra.class
+constApp\web\models\Usuario.class
+constApp\web\DAO\UsuarioDAO.class
+constApp\web\ServletInitializer.class
+constApp\web\WebApplication.class
+constApp\web\controllers\UsuarioController.class
