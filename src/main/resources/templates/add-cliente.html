@@ -66,6 +66,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
@@ -164,17 +168,27 @@
                     <div class="card-body">
                         <div class="container">
                             <form th:action="@{/saveCliente}" th:object="${cliente}" method="POST">
-
+                                <label>Nombre</label>
                                 <input type="text" th:field="*{nombre}" class="form-control mb-4" placeholder="Nombre / Razon Social" required/>
+                                <label>Domicilio</label>
                                 <input type="text" th:field="*{domicilio}" class="form-control mb-4" placeholder="Domicilio" required/>
+                                <label>Telefono</label>
                                 <input type="text" th:field="*{telefono}" class="form-control mb-4" placeholder="Telefono" required/>
+                                <label>Anticipo</label>
                                 <input type="number" th:field="*{anticipo}" class="form-control mb-4" placeholder="Anticipo" />
+                                <label>Cantidad de Cuotas</label>
                                 <input type="number" th:field="*{cant_cuotas}" class="form-control mb-4" placeholder="Cantidad de Cuotas" />
+                                <label>Monto de la Cuota</label>
                                 <input type="number" th:field="*{monto_cuota}" class="form-control mb-4" placeholder="Importe de la cuota" />
+                                <label>Dia de Pago</label>
                                 <input type="number" th:field="*{dia_de_pago}" class="form-control mb-4" placeholder="Dia del mes de pago" />
+                                <label>Refuerzo</label>
                                 <input type="number" th:field="*{refuerzo}" class="form-control mb-4" placeholder="Refuerzo" />
+                                <label>Posesion</label>
                                 <input type="number" th:field="*{posesion}" class="form-control mb-4" placeholder="Posesion" />
+                                <label>Interes Diario</label>
                                 <input type="number" th:field="*{interes_diario}" class="form-control mb-4" placeholder="Interes diario por Atraso" />
+                                <label>Proyecto/Obra</label>
                                 <input type="text" th:field="*{obra}" class="form-control mb-4" placeholder="Proyecto/Obra" />
 
 

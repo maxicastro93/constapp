@@ -19,7 +19,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Cliente {
 
     // se utiliza la anotacion getter y setter para reemplazar los get y set
@@ -49,7 +48,7 @@ public class Cliente {
     private BigDecimal anticipo;
 
     @Getter @Setter @Column(name = "cant_cuotas")
-    private int cant_cuotas;
+    private BigDecimal cant_cuotas;
 
     @Getter @Setter @Column(name = "monto_cuota")
     private BigDecimal monto_cuota;
@@ -59,6 +58,9 @@ public class Cliente {
 
     @Getter @Setter @Column(name = "posesion")
     private BigDecimal posesion;
+
+    @Getter @Column(name = "saldo_pendiente")
+    private BigDecimal saldo_pendiente;
 
     @OneToMany(mappedBy = "cliente_id", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
@@ -73,6 +75,29 @@ public class Cliente {
     @Getter @Setter @Column(name = "empresa_id")
     private String empresa_id;
 
+
+    public void crearSaldo_pendiente(){
+        BigDecimal saldoAux = new BigDecimal(0.0);
+        BigDecimal cuotaAux = new BigDecimal(0.0);
+        saldoAux = saldoAux.add(this.refuerzo);
+        saldoAux = saldoAux.add(this.anticipo);
+        saldoAux = saldoAux.add(this.posesion);
+        cuotaAux = this.monto_cuota.multiply(this.cant_cuotas);
+        saldoAux = saldoAux.add(cuotaAux);
+        this.saldo_pendiente = saldoAux;
+    }
+
+    public void actualizar_saldoPendiente(){
+        crearSaldo_pendiente();
+        if(getPagosCliente() != null) {
+            List<Ingreso> ingresoList = this.getPagosCliente();
+            BigDecimal saldoAux = new BigDecimal(0.0);
+            for (Ingreso ing : ingresoList){
+                saldoAux = saldoAux.add(ing.getMonto());
+            }
+            this.saldo_pendiente = this.saldo_pendiente.subtract(saldoAux);
+        }
+    }
 }
 
 

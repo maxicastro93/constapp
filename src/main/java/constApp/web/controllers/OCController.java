@@ -34,7 +34,7 @@ public class OCController {
     }
 
 
-    @GetMapping("/addOc")
+    @GetMapping("/oc/addOc")
     public ModelAndView addOC() {
         ModelAndView mav = new ModelAndView("add-oc");
         OrdenDeCompra newOC = new OrdenDeCompra();
@@ -51,7 +51,7 @@ public class OCController {
         return mav;
     }
 
-    @PostMapping(value = "/saveOC")
+    @PostMapping(value = "/oc/saveOC")
     public String saveOC(@ModelAttribute OrdenDeCompra oc, @ModelAttribute OCDetalleListDto ocdetallelist, Model model) {
 
         OCDetalleListDto ocDetalleListAux = new OCDetalleListDto();
@@ -75,7 +75,7 @@ public class OCController {
             return "redirect:/oc";
     }
 
-    @GetMapping("/showUpdateFormOC")
+    @GetMapping("/oc/showUpdateFormOC")
     public ModelAndView showUpdateFormOC(@RequestParam Long ocId) {
         ModelAndView mav = new ModelAndView("add-oc");
         OrdenDeCompra oc = ocRepo.findById(ocId).get();
@@ -85,7 +85,7 @@ public class OCController {
         return mav;
     }
 
-    @GetMapping("/deleteOC")
+    @GetMapping("/oc/deleteOC")
     public String deleteOC(@RequestParam Long ocId) {
         OrdenDeCompra oc = ocRepo.findById(ocId).get();
 

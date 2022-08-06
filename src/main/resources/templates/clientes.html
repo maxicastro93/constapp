@@ -67,6 +67,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
@@ -174,6 +178,7 @@
                                             <th>Nombre</th>
                                             <th>Domicilio</th>
                                             <th>Telefono</th>
+                                            <th>Total Adeudado</th>
                                             <th>Proyecto/Obra</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -184,8 +189,11 @@
                                         <td th:text="${cliente.nombre}" />
                                         <td th:text="${cliente.domicilio}" />
                                         <td th:text="${cliente.telefono}" />
+                                        <td th:text="'USD ' + ${#numbers.formatDecimal(cliente.saldo_pendiente, 1, 'POINT', 2, 'COMMA')}" />
                                         <td th:text="${cliente.obra}" />
                                         <td>
+                                            <a th:href="@{/verDetalleCliente(clienteId=${cliente.id})}" class="btn btn-primary">Ver Detalle</a>
+
                                             <a th:href="@{/showUpdateCliente(clienteId=${cliente.id})}" class="btn btn-info">Modificar</a>
 
                                             <a th:href="@{/deleteCliente(clienteId=${cliente.id})}" class="btn btn-danger ml-2">Eliminar</a>

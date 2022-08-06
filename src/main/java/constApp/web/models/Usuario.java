@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -26,14 +27,16 @@ public class Usuario {
     @Getter @Setter @Column(name = "apellido")
     private String apellido;
 
-    @Getter @Setter @Column(name = "nickname")
-    private String nickname;
+    @Getter @Setter @Column(name = "username")
+    private String username;
 
     @Getter @Setter @Column(name = "password")
     private String password;
 
-    @Getter @Setter @Column(name = "rol")
-    private String rol;
+    @ManyToMany
+    @Getter @Setter
+    private Set<Role> roles;
+
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "empresa_id")

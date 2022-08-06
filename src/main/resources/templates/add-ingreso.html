@@ -66,6 +66,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
@@ -164,40 +168,48 @@
                     <div class="card-body">
                         <div class="container">
                             <form th:action="@{/saveIngreso}" th:object="${ingreso}" method="POST">
-
+                                <label>Fecha</label>
                                 <input type="date" th:field="*{fecha}" class="form-control mb-4" placeholder="Fecha" required/>
-
-<!--                                <select th:field="*{cliente_id}" name="cliente_id" class="form-control mb-4" required>-->
-<!--                                    <option th:each="client :${clientes}" th:value="${client.id}" th:text="${client.nombre}+' - '+${client.obra}" />-->
-<!--                                </select>-->
-                                <div th:if="${cliente_id == null}">
-                                    <select th:field="*{cliente_id.id}" name="cliente_id" class="form-control mb-4" required>
+                                <label>Cliente</label>
+                                <div th:if="${clientes == null}">
+                                    <select th:field="*{cliente_id.id}" name="cliente_id" class="form-control mb-4">
+                                        <option value="0"> - </option>
+                                    </select>
+                                </div>
+                                <div th:if="${clientes != null}">
+                                    <select th:field="*{cliente_id.id}" name="cliente_id" class="form-control mb-4">
                                         <option th:each="cliente :${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' - '+${cliente.obra}" />
                                     </select>
                                 </div>
-                                <div th:if="${cliente_id != null}">
-                                    <select th:field="*{cliente_id.id}" name="cliente_id" class="form-control mb-4" required>
-                                        <option th:each="cliente :${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' - '+${cliente.obra}" />
-                                    </select>
-                                </div>
 
-
+                                <label>Tipo de Ingreso</label>
                                 <select type="text" th:field="*{tipoIngreso}" name="tipoIngreso" class="form-control mb-4"
                                         placeholder="Tipo de Ingreso" required>
-                                    <option value="Pesos" selected>Cuota</option>
-                                    <option value="Dolares">Anticipo</option>
-                                    <option value="Dolares">Refuerzo</option>
-                                    <option value="Dolares">Posesion</option>
+                                    <option value="Cuota" selected>Cuota</option>
+                                    <option value="Anticipo">Anticipo</option>
+                                    <option value="Refuerzo">Refuerzo</option>
+                                    <option value="Posesion">Posesion</option>
+                                    <option value="Posesion">Varios</option>
                                 </select>
 
+                                <label>Moneda</label>
                                 <select type="text" th:field="*{moneda}" name="moneda" class="form-control mb-4"
                                         placeholder="Moneda / Caja" required>
                                     <option value="Pesos" selected>Pesos</option>
                                     <option value="Dolares">Dolares</option>
                                 </select>
 
+                                <label>Importe</label>
                                 <input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del ingreso" required/>
 
+                                <label>Proyecto/Obra</label>
+                                <div th:if="${proyectos != null}">
+                                    <select th:field="*{obra}" name="obra" class="form-control mb-4">
+                                        <option th:each="obra :${proyectos}" th:value="${obra.nombre}" th:text="${obra.nombre}" />
+                                    </select>
+                                </div>
+
+                                <label>Observaciones</label>
                                 <input type="text" th:field="*{observaciones}" class="form-control mb-4" placeholder="Obs" />
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>

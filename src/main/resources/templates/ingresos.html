@@ -66,6 +66,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
@@ -157,10 +161,10 @@
 
                     <!-- Button Nuevo Gasto -->
                     <a th:href="@{/addIngresoForm}" class="btn btn-primary mb-4 mt-2">
-                        Nuevo Gasto</a>
+                        Nuevo Ingreso</a>
 
                     <div class="row">
-                        <!-- Acumulado Mensual Card  -->
+                        <!-- Acumulado Mensual Pesos  -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -210,6 +214,7 @@
                                         <tr>
                                             <th>id</th>
                                             <th>Fecha</th>
+                                            <th>Periodo</th>
                                             <th>Cliente</th>
                                             <th>Tipo de Ingreso</th>
                                             <th>Moneda</th>
@@ -222,7 +227,13 @@
                                     <tr th:each="ingreso: ${ingresos}">
                                         <td th:text="${ingreso.id}" />
                                         <td th:text="${ingreso.fecha}" />
-                                        <td th:text="${ingreso.cliente_id.nombre}" />
+                                        <td th:text="${ingreso.periodo}" />
+                                        <div th:if="${ingreso.cliente_id != null}">
+                                            <td th:text="${ingreso.cliente_id.nombre}" />
+                                        </div>
+                                        <div th:if="${ingreso.cliente_id == null}">
+                                            <td th:text="${'-'}" />
+                                        </div>
                                         <td th:text="${ingreso.tipoIngreso}" />
                                         <td th:text="${ingreso.moneda}" />
                                         <div th:if="${ingreso.moneda == 'Dolares'}">
@@ -254,7 +265,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Grupo Bicastro 2020</span>
                     </div>
                 </div>
             </footer>

@@ -18,7 +18,7 @@
             rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -63,6 +63,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
@@ -165,20 +169,23 @@
                         <div class="container">
                             <form th:action="@{/saveOC}" method="POST" th:object="${ocdetallelist}">
 
+                                <label>Fecha</label>
                                 <input type="date" th:value="${oc.fecha}" name="fecha" class="form-control mb-4" placeholder="Fecha" required/>
 
+                                <label>Proyecto/Obra</label>
                                 <select type="text" th:value="${oc.obra}" name="obra" class="form-control mb-4"
-                                        placeholder="Obra/Proyecto" required>
+                                        placeholder="Proyecto/Obra" required>
                                     <option value="San Nicanor" selected>San Nicanor</option>
                                     <option value="Fiorenza">Fiorenza</option>
                                 </select>
 
+                                <label>Detalle</label>
                                 <div id="rowDetalle" >
                                     <div id="detalleoc" th:each="ocdet, itemStat : *{ocDetalleList}">
                                             <div th:id="'detalle' + ${itemStat.index}" class="form-row">
                                                 <div class="form-group col-md-8"><input type="text" th:field="*{ocDetalleList[__${itemStat.index}__].detalle}" class="form-control" placeholder="Detalle" /></div>
                                                 <div class="form-group col-md-2"><input type="date" th:field="*{ocDetalleList[__${itemStat.index}__].fechaPago}" class="form-control" placeholder="Fecha de Pago" /></div>
-                                                <div class="form-group col-md-2"><input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{ocDetalleList[__${itemStat.index}__].importe}" class="form-control" placeholder="Importe" /></div>
+                                                <div class="form-group col-md-2"><input th:id="'detalleMonto' + ${itemStat.index}" type="number" min="0.00" max="100000000000.00" step="0.01" th:field="*{ocDetalleList[__${itemStat.index}__].importe}" class="form-control" placeholder="Importe" /></div>
                                             </div>
                                     </div>
                                     <div id="newdetalleoc"></div>
@@ -186,16 +193,17 @@
                                     </br>
                                 </div>
 
+                                <label>Moneda</label>
                                 <select type="text" th:value="${oc.moneda}" name="moneda" class="form-control mb-4"
                                         placeholder="Moneda" required>
                                     <option value="Pesos" selected>Pesos</option>
                                     <option value="Dolares">Dolares</option>
                                 </select>
 
-                                <input type="number" min="0.00" max="10000000.00" step="0.01"  th:value="${oc.montototal}" name="montototal" class="form-control mb-4" placeholder="Monto Total" required/>
+                                <label>Importe Total</label>
+                                <input id="montoTotal" type="number" min="0.00" max="100000000000.00" step="0.01" th:value="${oc.montototal}" name="montototal" class="form-control mb-4" placeholder="Monto Total" required/>
 
-                                <input type="text" th:value="${oc.usuario_id}" name="usuario_id" class="form-control mb-4" placeholder="Creador" required/>
-
+                                <label>Proveedeor/Comercio</label>
                                 <select th:value="${oc.proveedor_id}" name="proveedor" class="form-control mb-4" required>
                                     <option th:each="proveedor :${proveedores}" th:value="${proveedor.nombre}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                 </select>

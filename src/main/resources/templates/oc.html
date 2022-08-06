@@ -61,31 +61,19 @@
 
         <!-- Nav Item Menu -->
         <li class="nav-item active">
-                    <a class="nav-link" href="ingresos"><i class="fas fa-fw fa-folder"></i><span> Ingresos / Ventas</span></a>
-                    <a class="nav-link" href="gastos"><i class="fas fa-fw fa-folder"></i><span>Consumos/Gastos</span></a>
-                    <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
-                    <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
-                    <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="ingresos"><i class="fas fa-fw fa-folder"></i><span> Ingresos / Ventas</span></a>
+            <a class="nav-link" href="gastos"><i class="fas fa-fw fa-folder"></i><span>Consumos/Gastos</span></a>
+            <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
+            <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
+            <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="proyectos"><i class="fas fa-fw fa-folder"></i><span>Proyectos</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
-        <!-- Nav Item - Charts -->
-        <!--        <li class="nav-item">-->
-        <!--            <a class="nav-link" href="charts.html">-->
-        <!--                <i class="fas fa-fw fa-chart-area"></i>-->
-        <!--                <span>Charts</span></a>-->
-        <!--        </li>-->
-
-<!--         Nav Item - Tables-->
-<!--                <li class="nav-item active">-->
-<!--                    <a class="nav-link" href="tables.html">-->
-<!--                        <i class="fas fa-fw fa-table"></i>-->
-<!--                        <span>Tables</span></a>-->
-<!--                </li>-->
-
-        <!-- Divider -->
-        <!--        <hr class="sidebar-divider d-none d-md-block">-->
-
-        <!-- Sidebar Toggler (Sidebar) -->
+         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
@@ -153,7 +141,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tabla de gastos</h1>
+                <h1 class="h3 mb-2 text-gray-800">Ordenes de Compra</h1>
 
                 <!-- Button Nuevo Gasto -->
                 <a th:href="@{/addOc}" class="btn btn-primary mb-4 mt-2">
@@ -162,15 +150,15 @@
                 <!-- Tabla OC -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Listado de Pagos</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Listado de Ordenes de Compra</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="responsiveTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Fecha</th>
                                     <th>Nro OC</th>
+                                    <th>Fecha</th>
                                     <th>Moneda</th>
                                     <th>Monto Total</th>
                                     <th>Obra/Proyecto</th>
@@ -181,8 +169,8 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="oc: ${oc}">
-                                    <td th:text="${oc.fecha}" />
                                     <td th:text="${oc.id}" />
+                                    <td th:text="${oc.fecha}" />
                                     <td th:text="${oc.moneda}" />
                                     <div th:if="${oc.moneda == 'Dolares'}">
                                         <td th:text="'USD ' + ${#numbers.formatDecimal(oc.montototal, 1, 'POINT', 2, 'COMMA')}" />
@@ -194,9 +182,9 @@
                                     <td th:text="${oc.usuario_id}" />
                                     <td th:text="${oc.proveedor_id}" />
                                     <td>
-                                        <a th:href="@{/showUpdateFormOC(ocId=${oc.id})}" class="btn btn-info">Update</a>
+                                        <a th:href="@{/showUpdateFormOC(ocId=${oc.id})}" class="btn btn-info">Editar</a>
 
-                                        <a th:href="@{/deleteOC(ocId=${oc.id})}" class="btn btn-danger ml-2">Delete</a>
+                                        <a th:href="@{/deleteOC(ocId=${oc.id})}" class="btn btn-danger ml-2">Eliminar</a>
                                     </td>
                                 </tr>
                                 </tbody>

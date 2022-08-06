@@ -66,6 +66,10 @@
             <a class="nav-link" href="proveedor"><i class="fas fa-fw fa-folder"></i><span>Proveedores</span></a>
             <a class="nav-link" href="oc"><i class="fas fa-fw fa-folder"></i><span>Ordenes de Compra</span></a>
             <a class="nav-link" href="clientes"><i class="fas fa-fw fa-folder"></i><span>Clientes</span></a>
+            <a class="nav-link" href="balance"><i class="fas fa-fw fa-folder"></i><span>Balance</span></a>
+            <a class="nav-link" href="cambioDivisas"><i class="fas fa-fw fa-folder"></i><span>Cambio Divisas</span></a>
+            <a class="nav-link" href="rubros"><i class="fas fa-fw fa-folder"></i><span>Rubros</span></a>
+            <a class="nav-link" href="cuentas"><i class="fas fa-fw fa-folder"></i><span>Cuentas</span></a>
         </li>
 
 
@@ -151,8 +155,10 @@
                         <div class="container">
                             <form th:action="@{/saveGasto}" th:object="${gasto}" method="POST">
 
+                                <label>Fecha del Gasto</label>
                                 <input type="date" th:field="*{fecha}" class="form-control mb-4" placeholder="Fecha" required/>
 
+                                <label>Tipo de Comprobante</label>
                                 <select type="text" th:field="*{tipo_gasto}" name="tipo_gasto" class="form-control mb-4"
                                         placeholder="Tipo Comprobante" required>
                                     <option value="Factura B" selected>Factura B</option>
@@ -161,43 +167,79 @@
                                     <option value="Ticket">Ticket Consumidor Final</option>
                                 </select>
 
+                                <label>Nro de Comprobante</label>
                                 <input type="text" th:field="*{nro_comprobante}" class="form-control mb-4" placeholder="Nro Comprobante" required/>
 
-                                <select type="text" th:field="*{caja_origen}" name="caja_origen" class="form-control mb-4"
+                                <label>Rubro</label>
+                                <div th:if="${rubros == null}">
+                                    <select th:field="*{rubro}" name="rubro" class="form-control mb-4" required>
+                                        <option th:value="'-'" th:text="'No hay rubros cargados..'" />
+                                    </select>
+                                </div>
+                                <div th:if="${rubros != null}">
+                                    <select th:field="*{rubro}" name="rubro" class="form-control mb-4" required>
+                                        <option th:each="rubro :${rubros}" th:value="${rubro.nombre}" th:text="${rubro.nombre}" />
+                                    </select>
+                                </div>
+
+                                <label>Cuenta</label>
+                                <div th:if="${cuentas == null}">
+                                    <select th:field="*{cuenta}" name="cuenta" class="form-control mb-4" required>
+                                        <option th:value="'-'" th:text="'No hay cuentas cargadas'" />
+                                    </select>
+                                </div>
+                                <div th:if="${cuentas != null}">
+                                    <select th:field="*{cuenta}" name="cuenta" class="form-control mb-4" required>
+                                        <option th:each="cuenta :${cuentas}" th:value="${cuenta.nombre}" th:text="${cuenta.nombre}" />
+                                    </select>
+                                </div>
+
+                                <label>Moneda</label>
+                                <select type="text" th:field="*{moneda}" name="moneda" class="form-control mb-4"
                                         placeholder="Caja Origen" required>
                                     <option value="Pesos" selected>Pesos</option>
                                     <option value="Dolares">Dolares</option>
                                 </select>
 
+                                <label>Importe del Gasto</label>
                                 <input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del Pago" required/>
 
-                                <select type="text" th:field="*{estado}" name="caja_origen" class="form-control mb-4" required>
-                                    <option value="En Proceso" selected>En Proceso</option>
-                                    <option value="Pagado">Pagado</option>
+                                <label>Estado</label>
+                                <select type="text" th:field="*{estado}" name="caja_origen" class="form-control mb-4">
+                                    <option value="Pagado"selected>Pagado</option>
+                                    <option value="En Proceso" >En Proceso</option>
                                 </select>
 <!--                                <input type="text" th:field="*{oc_id}" class="form-control mb-4" placeholder="Nro OC" required/>-->
 
+                                <label>Orden de Compra</label>
                                 <div th:if="${gastoOC == null}">
-                                    <select th:field="*{gasto_OC.id}" name="gasto_OC" class="form-control mb-4" required>
+                                    <select th:field="*{gasto_OC.id}" name="gasto_OC" class="form-control mb-4">
                                         <option th:each="oc :${ocs}" th:value="${oc.id}" th:text="${oc.id}" />
                                     </select>
                                 </div>
                                 <div th:if="${gastoOC != null}">
-                                    <select th:field="*{gasto_OC.id}" name="gasto_OC" class="form-control mb-4" required>
+                                    <select th:field="*{gasto_OC.id}" name="gasto_OC" class="form-control mb-4">
                                         <option th:each="oc :${ocs}" th:value="${oc.id}" th:text="${oc.id}" />
                                     </select>
                                 </div>
 
+                                <label>Proveedor/Comercio</label>
                                 <div th:if="${proveedor_id == null}">
-                                    <select th:field="*{proveedor_id.id}" name="proveedor_id" class="form-control mb-4" required>
+                                    <select th:field="*{proveedor_id.id}" name="proveedor_id" class="form-control mb-4">
                                         <option th:each="proveedor :${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                     </select>
                                 </div>
                                 <div th:if="${proveedor_id != null}">
-                                    <select th:field="*{proveedor_id.id}" name="proveedor_id" class="form-control mb-4" required>
+                                    <select th:field="*{proveedor_id.id}" name="proveedor_id" class="form-control mb-4">
                                         <option th:each="proveedor :${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                     </select>
                                 </div>
+
+                                <label>Proyecto</label>
+                                <input type="text" th:field="*{obra}" class="form-control mb-4" placeholder="Proyecto/Obra"/>
+
+                                <label>Observaciones</label>
+                                <input type="text" th:field="*{observaciones}" class="form-control mb-4" placeholder="Observaciones"/>
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>
                                 <input type="hidden" th:field="*{id}" />

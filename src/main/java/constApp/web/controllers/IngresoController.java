@@ -3,8 +3,12 @@ package constApp.web.controllers;
 import constApp.web.DAO.*;
 import constApp.web.Utils.Calculos;
 import constApp.web.models.*;
+import constApp.web.services.BalanceService;
+import constApp.web.services.IngresoService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +24,11 @@ import java.util.Optional;
 public class IngresoController {
 
     @Autowired
-    private IngresoDAO ingresoRepo;
+    private IngresoService ingresoService;
     @Autowired
     private ClienteDAO clienteRepo;
+    @Autowired
+    private BalanceService balanceService;
 
     private Calculos calculos;
 
@@ -30,23 +36,11 @@ public class IngresoController {
     public ModelAndView getAllIngresos() throws ParseException {
 
         ModelAndView mav = new ModelAndView("ingresos");
-        BigDecimal acumuladoPesosMensual = new BigDecimal(0);
-        BigDecimal acumuladoDolaresMensual = new BigDecimal(0);
-
-        calculos = new Calculos();
+        BigDecimal acumuladoPesosMensual = ingresoService.getAcumuladoPesosPeriodoActual();
+        BigDecimal acumuladoDolaresMensual = ingresoService.getAcumuladoDolaresPeriodoActual();
 
 
-        ArrayList<Ingreso> ingresoDolaresPeriodoActual = ingresoRepo.findByPeriodoAndMoneda(calculos.getPeriodoActual(), "Dolares");
-        ArrayList<Ingreso> ingresoPesosPeriodoActual = ingresoRepo.findByPeriodoAndMoneda(calculos.getPeriodoActual(), "Pesos");
-
-        for (Ingreso ingAux : ingresoDolaresPeriodoActual) {
-            acumuladoDolaresMensual = acumuladoDolaresMensual.add(ingAux.getMonto());
-        }
-        for (Ingreso ingAux : ingresoPesosPeriodoActual) {
-            acumuladoPesosMensual = acumuladoPesosMensual.add(ingAux.getMonto());
-        }
-
-        mav.addObject("ingresos", ingresoRepo.findAll());
+        mav.addObject("ingresos", ingresoService.getAllIngresos());
         mav.addObject("totalDolaresMensual", acumuladoDolaresMensual);
         mav.addObject("totalPesosMensual", acumuladoPesosMensual);
 
@@ -64,28 +58,22 @@ public class IngresoController {
     }
 
     @PostMapping("/saveIngreso")
-    public String saveIngreso(@ModelAttribute Ingreso ingreso, @ModelAttribute Cliente cliente) throws ParseException {
+    public String saveIngreso(@ModelAttribute Ingreso ingreso, @ModelAttribute Cliente cliente, @ModelAttribute Balance balance) throws ParseException {
+        Calculos calculo = new Calculos();
+        ingreso.setPeriodo(calculo.getPeriodoFromFecha(ingreso.getFecha())); // para despues filtrar por "Periodo" los gastos o ingresos
 
-        ingreso.setPeriodo(ingreso.getFecha());
 
-        Optional<Cliente> clienteAux = clienteRepo.findById(ingreso.getCliente_id().getId());
-        if (clienteAux.isPresent()) {
-            clienteAux.get().getPagosCliente().add(ingreso);
-            ingreso.setCliente_id(clienteAux.get());
-            ingresoRepo.save(ingreso);
-        }
-        else{
-            ingreso.setCliente_id(null);
-            clienteAux.get().getPagosCliente().add(null);
-            ingresoRepo.save(ingreso);
-        }
+        Ingreso i = ingresoService.retornaIngresoActualizado(ingreso);
+
+        balanceService.saveIngreso(i);
+
         return "redirect:/ingresos";
     }
 
     @GetMapping("/updateIngresoForm")
     public ModelAndView updateIngresoForm(@RequestParam Long ingresoId) {
         ModelAndView mav = new ModelAndView("add-ingreso");
-        Ingreso ingAux = ingresoRepo.findById(ingresoId).get();
+        Ingreso ingAux = ingresoService.getIngresoById(ingresoId);
 //        ingAux.setCliente_id(null);
         mav.addObject("ingreso", ingAux);
         mav.addObject("clientes", clienteRepo.findAll());
@@ -95,7 +83,8 @@ public class IngresoController {
 
     @GetMapping("/deleteIngreso")
     public String deleteIngreso(@RequestParam Long ingresoId) {
-        ingresoRepo.deleteById(ingresoId);
+        balanceService.deleteIngreso(ingresoId);
+        ingresoService.deleteIngreso(ingresoId);
         return "redirect:/ingresos";
     }
 
