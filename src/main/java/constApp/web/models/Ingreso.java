@@ -44,6 +44,12 @@ public class Ingreso {
     @Getter @Setter @Column(name = "moneda")
     private String moneda;
 
+    @Getter @Setter @Column(name = "diasAtraso")
+    private Integer diasAtraso;
+
+    @Getter @Setter @Column(name = "montoInteres")
+    private BigDecimal montoInteres;
+
     @Getter @Setter @Column(name = "monto")
     private BigDecimal monto;
 
@@ -55,5 +61,8 @@ public class Ingreso {
 
     @Getter @Setter @Column(name = "empresa_id")
     private String empresa_id;
+
+    @Getter @Setter @Column(name = "usuario")
+    private String usuario;
 
 }

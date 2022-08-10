@@ -6,7 +6,7 @@
     <div th:insert="fragments/fragmentos::header-principal"/>
 
 
-    <title>Clientes</title>
+    <title>Detalle OC</title>
 
     <div th:insert="fragments/fragmentos::header-secundario"/>
 
@@ -41,25 +41,25 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Cliente: ' + ${cliente.nombre} + ' - ' + ${cliente.obra}"></p></h1>
+                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Orden de Compra Nro: ' + ${oc.id}"></p></h1>
 
-                    <!-- Adeudado por Cliente  -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Total Adeudado a la fecha</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(totalAdeudado, 1, 'POINT', 2, 'COMMA')}"></p></div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    &lt;!&ndash; Adeudado por Cliente  &ndash;&gt;-->
+<!--                    <div class="col-xl-3 col-md-6 mb-4">-->
+<!--                        <div class="card border-left-success shadow h-100 py-2">-->
+<!--                            <div class="card-body">-->
+<!--                                <div class="row no-gutters align-items-center">-->
+<!--                                    <div class="col mr-2">-->
+<!--                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">-->
+<!--                                            Total Adeudado a la fecha</div>-->
+<!--                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(totalAdeudado, 1, 'POINT', 2, 'COMMA')}"></p></div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-auto">-->
+<!--                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
                     <!-- Total Pactado Cliente -->
@@ -67,75 +67,75 @@
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Montos pactados por Contrato</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Detalle Orden de Compra</h6>
                             </div>
                             <div class="card-body">
-                                <h4 class="small font-weight-bold">Anticipo<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(cliente.anticipo, 1, 'POINT', 2, 'COMMA')}"></p></div>
-                                <h4 class="small font-weight-bold">Refuezo<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(cliente.refuerzo, 1, 'POINT', 2, 'COMMA')}"></p></div>
-                                <h4 class="small font-weight-bold">Posesion<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(cliente.posesion, 1, 'POINT', 2, 'COMMA')}"></p></div>
-                                <h4 class="small font-weight-bold">Cuotas<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.cant_cuotas} + ' x '+ 'USD ' + ${#numbers.formatDecimal(cliente.monto_cuota, 1, 'POINT', 2, 'COMMA')}"></p></div>
+                                <h4 class="small font-weight-bold">Nro OC<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.id}"></p></div>
+                                <h4 class="small font-weight-bold">Fecha<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.fecha}"></p></div>
+                                <h4 class="small font-weight-bold">Creador<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.usuario_id}"></p></div>
+                                <h4 class="small font-weight-bold">Proveedor<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.proveedor_id}"></p></div>
+                                <h4 class="small font-weight-bold">Moneda<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.moneda}"></p></div>
+                                <h4 class="small font-weight-bold">Monto Total<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${#numbers.formatDecimal(oc.montototal, 1, 'POINT', 2, 'COMMA')}"></p></div>
 
 
                             </div>
                         </div>
                         </div>
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Informacion del Cliente</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="small font-weight-bold">Nombre<span class="float-right"></span></h5>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.nombre}"></p></div>
-                                    <h5 class="small font-weight-bold">Direccion<span class="float-right"></span></h5>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.domicilio}"></p></div>
-                                    <h5 class="small font-weight-bold">Telefono<span class="float-right"></span></h5>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.telefono}"></p></div>
-                                    <h5 class="small font-weight-bold">Proyecto<span class="float-right"></span></h5>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.obra}"></p></div>
+<!--                        <div class="col-xl-4 col-lg-5">-->
+<!--                            <div class="card shadow mb-4">-->
+<!--                                <div class="card-header py-3">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Informacion del Cliente</h6>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <h5 class="small font-weight-bold">Nombre<span class="float-right"></span></h5>-->
+<!--                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.nombre}"></p></div>-->
+<!--                                    <h5 class="small font-weight-bold">Direccion<span class="float-right"></span></h5>-->
+<!--                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.domicilio}"></p></div>-->
+<!--                                    <h5 class="small font-weight-bold">Telefono<span class="float-right"></span></h5>-->
+<!--                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.telefono}"></p></div>-->
+<!--                                    <h5 class="small font-weight-bold">Proyecto<span class="float-right"></span></h5>-->
+<!--                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.obra}"></p></div>-->
 
 
-                                </div>
-                            </div>
-                        </div>
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                     <!-- Tabla Cliente -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Listado de Movimientos del Cliente</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Orden de Compra</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="movimientosTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Id Movimiento</th>
                                             <th>Fecha</th>
-                                            <th>Tipo de Ingreso</th>
+                                            <th>Detalle</th>
                                             <th>Importe</th>
                                             <th>Proyecto/Obra</th>
-                                            <th>Observaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="movimiento: ${movimientos}">
-                                        <td th:text="${movimiento.id}" />
-                                        <td th:text="${movimiento.fecha}" />
-                                        <td th:text="${movimiento.tipoIngreso}" />
-                                        <td th:text="'USD ' + ${#numbers.formatDecimal(movimiento.monto, 1, 'POINT', 2, 'COMMA')}" />
-                                        <td th:text="${movimiento.obra}" />
-                                        <td th:text="${movimiento.observaciones}" />
+                                    <tr th:each="ocdet: ${ocdetalle}">
+                                        <td th:text="${ocdet.fechaPago}" />
+                                        <td th:text="${ocdet.detalle}" />
+                                        <td th:text="'$ ' + ${#numbers.formatDecimal(ocdet.importe, 1, 'POINT', 2, 'COMMA')}" />
+                                        <td th:text="${oc.obra}" />
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <a th:href="@{/clientes}">Volver</a>
+                    <a th:href="@{/oc}">Volver</a>
 
 
                 </div>

@@ -42,7 +42,7 @@ public class Cliente {
     private String telefono;
 
     @Getter @Setter @Column(name = "dia_de_pago")
-    private String dia_de_pago;
+    private Integer dia_de_pago;
 
     @Getter @Setter @Column(name = "anticipo")
     private BigDecimal anticipo;
@@ -67,7 +67,7 @@ public class Cliente {
     private List<Ingreso> pagosCliente;
 
     @Getter @Setter @Column(name = "interes_diario")
-    private Double interes_diario;
+    private BigDecimal interes_diario;
 
     @Getter @Setter @Column(name = "obra")
     private String obra;

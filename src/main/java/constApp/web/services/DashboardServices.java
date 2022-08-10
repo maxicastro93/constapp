@@ -34,6 +34,7 @@ public class DashboardServices {
         }
         return sumatoriaGastos;
     }
+
     public BigDecimal listAllGastosPesos(){
         BigDecimal sumatoriaGastos = new BigDecimal(0.00);
         for (Gasto g : gastosRepo.findAll()){
