@@ -40,8 +40,8 @@ public class IngresoService {
             Optional<Cliente> clienteAux = clienteRepo.findById(ingreso.getCliente_id().getId());
 
             if (clienteAux.isPresent() && clienteAux.get() != null) {
-                clienteAux.get().getPagosCliente().add(ingreso);// Vincula el ingreso al Cliente
-                clienteAux.get().actualizar_saldoPendiente(); // actualiza el saldo del cliente
+//                clienteAux.get().getPagosCliente().add(ingreso);// Vincula el ingreso al Cliente
+//                clienteAux.get().actualizar_saldoPendiente(); // actualiza el saldo del cliente
 
                 ingreso.setCliente_id(clienteAux.get()); // Vincula el Cliente al ingreso
             }
@@ -49,25 +49,11 @@ public class IngresoService {
         else {
             ingreso.setCliente_id(null);
         }
-        ingresoRepo.save(ingreso);
         return ingreso;
     }
 
     public void saveIngreso(Ingreso ingreso) {
 
-        if (ingreso.getCliente_id() != null) {
-            Optional<Cliente> clienteAux = clienteRepo.findById(ingreso.getCliente_id().getId());
-
-            if (clienteAux.isPresent() && clienteAux.get() != null) {
-                clienteAux.get().getPagosCliente().add(ingreso);// Vincula el ingreso al Cliente
-                clienteAux.get().actualizar_saldoPendiente(); // actualiza el saldo del cliente
-
-                ingreso.setCliente_id(clienteAux.get()); // Vincula el Cliente al ingreso
-            }
-        }
-        else {
-            ingreso.setCliente_id(null);
-        }
         ingresoRepo.save(ingreso);
     }
 
@@ -97,11 +83,13 @@ public class IngresoService {
         return acumuladoPesosMensual;
     }
 
-        public void deleteIngreso(Long gastoId) {
-        ingresoRepo.deleteById(gastoId);
+    public void deleteIngreso(Long ingresoId) {
+        balanceService.deleteIngreso(ingresoId);
+        ingresoRepo.deleteById(ingresoId);
+
     }
 
-    public Ingreso getIngresoById(Long gastoId) {
-        return ingresoRepo.findById(gastoId).get();
+    public Ingreso getIngresoById(Long ingresoId) {
+        return ingresoRepo.findById(ingresoId).get();
     }
 }

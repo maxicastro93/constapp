@@ -91,7 +91,7 @@
                                 <input id="montoTotal" type="number" min="0.00" max="100000000000.00" step="0.01" th:value="${oc.montototal}" name="montototal" class="form-control mb-4" placeholder="Monto Total" required/>
 
                                 <label>Proveedeor/Comercio</label>
-                                <select th:value="${oc.proveedor_id}" name="proveedor" class="form-control mb-4" required>
+                                <select th:value="${oc.proveedor_id}" name="proveedor_id" class="form-control mb-4" required>
                                     <option th:each="proveedor :${proveedores}" th:value="${proveedor.nombre}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                 </select>
 
@@ -173,7 +173,7 @@
 <!-- Page level custom scripts -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
 
-<script type="text/JavaScript" src="js/addInputOC.js">
+<script type="text/javaScript" src="js/addInputOC.js">
 
 </script>
 

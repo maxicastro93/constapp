@@ -132,7 +132,11 @@
                                 </div>
 
                                 <label>Proyecto</label>
-                                <input type="text" th:field="*{obra}" class="form-control mb-4" placeholder="Proyecto/Obra"/>
+                                <div th:if="${proyectos != null}">
+                                    <select th:field="*{obra}" name="obra" class="form-control mb-4" placeholder="Proyecto/Obra">
+                                        <option th:each="o :${proyectos}" th:value="${o.nombre}" th:text="${o.nombre}" />
+                                    </select>
+                                </div>
 
                                 <label>Observaciones</label>
                                 <input type="text" th:field="*{observaciones}" class="form-control mb-4" placeholder="Observaciones"/>

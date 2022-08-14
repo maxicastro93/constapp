@@ -2,6 +2,7 @@ package constApp.web.services;
 
 import constApp.web.DAO.BalanceDAO;
 import constApp.web.models.Balance;
+import constApp.web.models.Cliente;
 import constApp.web.models.Gasto;
 import constApp.web.models.Ingreso;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class BalanceService {
     public void saveIngreso(Ingreso ingreso) {
         Balance balance;
 
-        if (balanceRepo.findByMovimientoIdAndTipoMovimiento(ingreso.getId(), "Gasto") != null)
-            balance = balanceRepo.findByMovimientoIdAndTipoMovimiento(ingreso.getId(), "Gasto");
+        if (balanceRepo.findByMovimientoIdAndTipoMovimiento(ingreso.getId(), "Ingreso") != null)
+            balance = balanceRepo.findByMovimientoIdAndTipoMovimiento(ingreso.getId(), "Ingreso");
         else
             balance = new Balance();
 
@@ -94,9 +95,9 @@ public class BalanceService {
         balanceRepo.deleteByMovimientoIdAndTipoMovimiento(gastoId, "Gasto");
     }
 
-    public void deleteDivisa(Long gastoId) {
+    public void deleteDivisa(Long cambioId) {
 
-        balanceRepo.deleteByMovimientoIdAndTipoMovimiento(gastoId, "Gasto");
+        balanceRepo.deleteByMovimientoIdAndTipoMovimiento(cambioId, "Cambio Divisas");
     }
 
     public void deleteIngreso(Long ingresoId) {

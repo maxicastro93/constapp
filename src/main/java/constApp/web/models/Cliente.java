@@ -62,7 +62,7 @@ public class Cliente {
     @Getter @Column(name = "saldo_pendiente")
     private BigDecimal saldo_pendiente;
 
-    @OneToMany(mappedBy = "cliente_id", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "cliente_id", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
     private List<Ingreso> pagosCliente;
 
@@ -78,7 +78,7 @@ public class Cliente {
 
     public void crearSaldo_pendiente(){
         BigDecimal saldoAux = new BigDecimal(0.0);
-        BigDecimal cuotaAux = new BigDecimal(0.0);
+        BigDecimal cuotaAux;
         saldoAux = saldoAux.add(this.refuerzo);
         saldoAux = saldoAux.add(this.anticipo);
         saldoAux = saldoAux.add(this.posesion);

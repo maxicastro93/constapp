@@ -101,6 +101,7 @@
                                             <th>Tipo de Ingreso</th>
                                             <th>Moneda</th>
                                             <th>Importe</th>
+                                            <th>Proyecto/Obra</th>
                                             <th>Obs</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -124,6 +125,7 @@
                                         <div th:if="${ingreso.moneda == 'Pesos'}">
                                             <td th:text="'$ ' + ${#numbers.formatDecimal(ingreso.monto, 1, 'POINT', 2, 'COMMA')}" />
                                         </div>
+                                        <td th:text="${ingreso.obra}" />
                                         <td th:text="${ingreso.observaciones}" />
                                         <td>
                                             <a th:href="@{/updateIngresoForm(ingresoId=${ingreso.id})}" class="btn btn-info">Modificar</a>

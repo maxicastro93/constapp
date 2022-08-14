@@ -8,6 +8,8 @@ import constApp.web.models.OCDetalle;
 import constApp.web.models.OrdenDeCompra;
 import constApp.web.models.Proveedor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +72,9 @@ public class OCController {
             System.out.println(oc.getMontototal());
 //        Proveedor provAux = provRepo.findById(gasto.getProv_id()).get();
 //        gasto.setProveedor_id(provAux);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        oc.setUsuario_id(currentPrincipalName);
             ocRepo.save(oc);
 
             return "redirect:/oc";

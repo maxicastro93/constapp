@@ -65,17 +65,20 @@ public class GastoService {
 
     public void saveGasto(Gasto gasto) {
 
-        Long idOC = gasto.getGasto_OC().getId();
-        Long idProveedor = gasto.getProveedor_id().getId();
-
-        Optional<OrdenDeCompra> auxOC = ocRepo.findById(idOC);
-        Optional<Proveedor> provAux = provRepo.findById(idProveedor);
-
-        if (auxOC.isPresent() && provAux.isPresent()) {
+        if (gasto.getGasto_OC() != null ) {
+            Long idOC = gasto.getGasto_OC().getId();
+            Optional<OrdenDeCompra> auxOC = ocRepo.findById(idOC);
             gasto.setGasto_OC(auxOC.get());
-            gasto.setProveedor_id(provAux.get());
-//            provAux.get().getGastosProveedor().add(gasto); ESTO VA EN SERVICE DE PROVEEDOR
+
         }
+        if (gasto.getProveedor_id() != null ) {
+            Long idProveedor = gasto.getProveedor_id().getId();
+            Optional<Proveedor> provAux = provRepo.findById(idProveedor);
+            gasto.setProveedor_id(provAux.get());
+            //            provAux.get().getGastosProveedor().add(gasto); ESTO VA EN SERVICE DE PROVEEDOR
+
+        }
+
         else{
             gasto.setGasto_OC(null);
             gasto.setProveedor_id(null);
@@ -88,6 +91,7 @@ public class GastoService {
     public void deleteGasto(Long gastoId) {
 
         gastoRepo.deleteById(gastoId);
+        balanceService.deleteGasto(gastoId);
     }
 
     public Gasto getGastoById(Long gastoId) {

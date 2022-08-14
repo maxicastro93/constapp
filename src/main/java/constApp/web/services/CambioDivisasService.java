@@ -112,6 +112,7 @@ public class CambioDivisasService {
         cambioDivisa.setGasto_id(gastoCambioDivisa.getId());
         cambioRepo.save(cambioDivisa);
 
+        balance.setMovimientoId(cambioDivisa.getId());
         balanceService.saveBalanceDivisa(balance);
 
     }
@@ -125,6 +126,7 @@ public class CambioDivisasService {
             gastoService.deleteGasto(auxCambio.get().getGasto_id());
             balanceService.deleteDivisa(cambioId);
         }
+        cambioRepo.deleteById(cambioId);
 
     }
 

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -29,6 +30,8 @@ public class IngresoController {
     private ClienteDAO clienteRepo;
     @Autowired
     private BalanceService balanceService;
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
     private Calculos calculos;
 
@@ -52,8 +55,16 @@ public class IngresoController {
     public ModelAndView addIngresoForm() {
         ModelAndView mav = new ModelAndView("add-ingreso");
         Ingreso newIngreso = new Ingreso();
+
+        List<Proyecto> listProyectos = proyectoRepo.findAll();
+        ArrayList<String> lisNombreProyectos  = new ArrayList<>();
+        for (Proyecto p : listProyectos) {
+            lisNombreProyectos.add(p.getNombre());
+        }
         mav.addObject("ingreso", newIngreso);
         mav.addObject("clientes", clienteRepo.findAll());
+        mav.addObject("proyectos", lisNombreProyectos);
+
         return mav;
     }
 
@@ -65,6 +76,7 @@ public class IngresoController {
 
         Ingreso i = ingresoService.retornaIngresoActualizado(ingreso);
 
+        ingresoService.saveIngreso(i);
         balanceService.saveIngreso(i);
 
         return "redirect:/ingresos";
@@ -74,9 +86,18 @@ public class IngresoController {
     public ModelAndView updateIngresoForm(@RequestParam Long ingresoId) {
         ModelAndView mav = new ModelAndView("add-ingreso");
         Ingreso ingAux = ingresoService.getIngresoById(ingresoId);
+        Optional<Cliente> clienteAux = clienteRepo.findById(ingAux.getCliente_id().getId());
+
 //        ingAux.setCliente_id(null);
+        List<Proyecto> listProyectos = proyectoRepo.findAll();
+        ArrayList<String> lisNombreProyectos  = new ArrayList<>();
+        for (Proyecto p : listProyectos) {
+            lisNombreProyectos.add(p.getNombre());
+        }
         mav.addObject("ingreso", ingAux);
         mav.addObject("clientes", clienteRepo.findAll());
+        mav.addObject("proyectos", lisNombreProyectos);
+
 
         return mav;
     }

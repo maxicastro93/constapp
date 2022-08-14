@@ -36,6 +36,8 @@ public class GastoController {
     private RubroDAO rubroRepo;
     @Autowired
     private CuentaDAO cuentaRepo;
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
     private Calculos calculo;
 
@@ -58,6 +60,7 @@ public class GastoController {
         mav.addObject("ocs", ocRepo.findAll());
         mav.addObject("rubros", rubroRepo.findAll());
         mav.addObject("cuentas", cuentaRepo.findAll());
+        mav.addObject("proyectos", proyectoRepo.findAll());
 
 
         return mav;
