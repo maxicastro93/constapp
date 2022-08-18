@@ -71,8 +71,9 @@ public class Gasto {
     @Getter @Setter @Column(name = "cuenta")
     private String cuenta;
 
-    @Getter @Setter @Column(name = "obra")
-    private String obra;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "obra")
+    private Proyecto obra;
 
     @Getter @Setter @Column(name = "observaciones")
     private String observaciones;

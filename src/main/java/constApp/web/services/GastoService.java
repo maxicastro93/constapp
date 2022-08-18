@@ -27,6 +27,8 @@ public class GastoService {
     private RubroDAO rubroRepo;
     @Autowired
     private CuentaDAO cuentaRepo;
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
 
     public ArrayList<Gasto> getAllGastos() {
@@ -43,19 +45,26 @@ public class GastoService {
 
         Long idOC = gasto.getGasto_OC().getId();
         Long idProveedor = gasto.getProveedor_id().getId();
+        Long idProyecto = gasto.getObra().getId();
+
 
 
         Optional<OrdenDeCompra> auxOC = ocRepo.findById(idOC);
         Optional<Proveedor> provAux = provRepo.findById(idProveedor);
+        Optional<Proyecto> proyAux = proyectoRepo.findById(idProyecto);
 
         if (auxOC.isPresent() && provAux.isPresent()) {
             gasto.setGasto_OC(auxOC.get());
             gasto.setProveedor_id(provAux.get());
-//            provAux.get().getGastosProveedor().add(gasto); ESTO VA EN SERVICE DE PROVEEDOR
+            gasto.setObra(proyAux.get());
+
+            //            provAux.get().getGastosProveedor().add(gasto); ESTO VA EN SERVICE DE PROVEEDOR
         }
         else{
             gasto.setGasto_OC(null);
             gasto.setProveedor_id(null);
+            gasto.setObra(null);
+
         }
 
         gastoRepo.save(gasto);

@@ -67,6 +67,7 @@
                                             <th>Estado</th>
                                             <th>OC</th>
                                             <th>Proveedor</th>
+                                            <th>Proyecto</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -110,6 +111,13 @@
                                         <div th:if="${gasto.proveedor_id == null}">
                                             <td th:text="${'-'}" />
                                         </div>
+                                        <div th:if="${gasto.obra != null}">
+                                            <td th:text="${gasto.obra.nombre}" />
+                                        </div>
+
+                                        <div th:if="${gasto.obra == null}">
+                                            <td th:text="${'-'}" />
+                                        </div>
 
                                             <td>
                                             <a th:href="@{/showUpdateForm(gastoId=${gasto.id})}" class="btn btn-info">Modificar</a>
@@ -131,7 +139,8 @@
                                         <th>Estado</th>
                                         <th>OC</th>
                                         <th>Proveedor</th>
-<!--                                        <th>Acciones</th>-->
+                                        <th>Proyecto</th>
+                                        <!--                                        <th>Acciones</th>-->
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -201,35 +210,65 @@
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <!-- Page level custom scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
     <script>
 			$(document).ready(function() {
-				$("#responsiveTable").DataTable({
-						initComplete: function () {
+				$("#responsiveTable").DataTable(
+				{
+				    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: 'Gastos Grupo Bicastro',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            title: 'Gastos Grupo Bicastro',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        }
+                    ],
+                    initComplete: function ()
+                    {
                         this.api()
-                            .columns()
-                            .every(function () {
-                                var column = this;
-                                var select = $('<select class="form-control"><option value=""></option></select>')
-                                    .appendTo($(column.footer()).empty())
-                                    .on('change', function () {
-                                        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                        .columns()
+                        .every(function ()
+                        {
+                            var column = this;
+                            var select = $('<select class="form-control"><option value=""></option></select>')
+                                .appendTo($(column.footer()).empty())
+                                .on('change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
-                                        column.search(val ? '^' + val + '$' : '', true, false).draw();
-                                    });
+                                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                });
 
-                                column
-                                    .data()
-                                    .unique()
-                                    .sort()
-                                    .each(function (d, j) {
-                                        select.append('<option value="' + d + '">' + d + '</option>');
-                                    });
-                            });
+                            column
+                                .data()
+                                .unique()
+                                .sort()
+                                .each(function (d, j)
+                                {
+                                    select.append('<option value="' + d + '">' + d + '</option>');
+                                });
+                        });
                     },
-				});
+                });
 			});
+
 	</script>
 
 </body>

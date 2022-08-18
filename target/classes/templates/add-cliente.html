@@ -69,9 +69,17 @@
                                 <input type="number" th:field="*{posesion}" class="form-control mb-4" placeholder="Posesion" />
                                 <label>Interes Diario</label>
                                 <input type="number" th:field="*{interes_diario}" class="form-control mb-4" placeholder="Interes diario por Atraso" />
-                                <label>Proyecto/Obra</label>
-                                <input type="text" th:field="*{obra}" class="form-control mb-4" placeholder="Proyecto/Obra" />
-
+                                <label>Proyecto</label>
+                                <div th:if="${obra == null}">
+                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
+                                    </select>
+                                </div>
+                                <div th:if="${obra != null}">
+                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
+                                    </select>
+                                </div>
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>
                                 <input type="hidden" th:field="*{id}" />
@@ -99,7 +107,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; MC 2020</span>
+                    <span>Copyright &copy; Grupo Bicastro 2022</span>
                 </div>
             </div>
         </footer>

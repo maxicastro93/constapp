@@ -5,7 +5,7 @@
 
     <div th:insert="fragments/fragmentos::header-principal"/>
 
-    <title>Clientes</title>
+    <title>Proyectos</title>
 
     <div th:insert="fragments/fragmentos::header-secundario"/>
 
@@ -58,7 +58,8 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Nombre Proyecto</th>
-                                            <th>Gasto Total Estimado</th>
+                                            <th>Gasto Estimado en Pesos</th>
+                                            <th>Gasto Estimado en Dolares</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -66,9 +67,11 @@
                                     <tr th:each="proyecto: ${proyectos}">
                                         <td th:text="${proyecto.id}" />
                                         <td th:text="${proyecto.nombre}" />
-                                        <td th:text="'USD ' + ${#numbers.formatDecimal(proyecto.gasto_proyectado, 1, 'POINT', 2, 'COMMA')}" />
+                                        <td th:text="'$ ' + ${#numbers.formatDecimal(proyecto.gasto_proyectado_pesos, 1, 'POINT', 2, 'COMMA')}" />
+                                        <td th:text="'USD ' + ${#numbers.formatDecimal(proyecto.gasto_proyectado_dolares, 1, 'POINT', 2, 'COMMA')}" />
+
                                         <td>
-<!--                                            <a th:href="@{/verDetalleProyecto(proyectoId=${proyecto.id})}" class="btn btn-primary">Ver Detalle</a>-->
+                                            <a th:href="@{/verDetalleProyecto(proyectoId=${proyecto.id})}" class="btn btn-primary">Ver Detalle</a>
 
                                             <a th:href="@{/showUpdateProyecto(proyectoId=${proyecto.id})}" class="btn btn-info">Modificar</a>
 

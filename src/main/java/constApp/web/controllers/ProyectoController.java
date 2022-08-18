@@ -40,16 +40,16 @@ public class ProyectoController {
         return mav;
     }
 
-//    @GetMapping("/verDetalleCliente")
-//    public ModelAndView verDetalleCliente(@RequestParam Long clienteId) {
-//        ModelAndView mav = new ModelAndView("vista-movimientos-cliente");
-//        Cliente cliente = clienteRepo.findById(clienteId).get();
-//        mav.addObject("cliente", cliente);
-//        mav.addObject("movimientos", cliente.getPagosCliente());
-//        mav.addObject("totalAdeudado", cliente.getSaldo_pendiente());
-//
-//        return mav;
-//    }
+    @GetMapping("/verDetalleProyecto")
+    public ModelAndView verDetalleProyecto(@RequestParam Long proyectoId) {
+        ModelAndView mav = new ModelAndView("proyecto-detalle");
+        Proyecto proyecto = proyectoRepo.findById(proyectoId).get();
+        mav.addObject("proyecto", proyecto);
+        mav.addObject("ingresosProyecto", proyecto.getIngresosProyecto());
+        mav.addObject("gastosProyecto", proyecto.getGastosProyecto());
+
+        return mav;
+    }
 
 
     @PostMapping("/saveProyecto")

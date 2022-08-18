@@ -87,18 +87,17 @@
                                 <label>Importe</label>
                                 <input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del ingreso" required/>
 
-                                <label>Proyecto/Obra</label>
-                                <div th:if="${proyectos == null}">
-                                    <select th:field="*{obra}" name="obra" class="form-control mb-4">
-                                        <option value="0"> - </option>
+                                <label>Proyecto</label>
+                                <div th:if="${obra == null}">
+                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>
-                                <div th:if="${proyectos != null}">
-                                    <select th:field="*{obra}" name="obra" class="form-control mb-4">
-                                        <option th:each="p :${proyectos}" th:value="${p}" th:text="${p}" />
+                                <div th:if="${obra != null}">
+                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>
-<!--                                NO ANDA ESTO-->
 
                                 <label>Observaciones</label>
                                 <input type="text" th:field="*{observaciones}" class="form-control mb-4" placeholder="Obs" />

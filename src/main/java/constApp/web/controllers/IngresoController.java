@@ -56,14 +56,9 @@ public class IngresoController {
         ModelAndView mav = new ModelAndView("add-ingreso");
         Ingreso newIngreso = new Ingreso();
 
-        List<Proyecto> listProyectos = proyectoRepo.findAll();
-        ArrayList<String> lisNombreProyectos  = new ArrayList<>();
-        for (Proyecto p : listProyectos) {
-            lisNombreProyectos.add(p.getNombre());
-        }
         mav.addObject("ingreso", newIngreso);
         mav.addObject("clientes", clienteRepo.findAll());
-        mav.addObject("proyectos", lisNombreProyectos);
+        mav.addObject("proyectos", proyectoRepo.findAll());
 
         return mav;
     }
@@ -88,15 +83,10 @@ public class IngresoController {
         Ingreso ingAux = ingresoService.getIngresoById(ingresoId);
         Optional<Cliente> clienteAux = clienteRepo.findById(ingAux.getCliente_id().getId());
 
-//        ingAux.setCliente_id(null);
-        List<Proyecto> listProyectos = proyectoRepo.findAll();
-        ArrayList<String> lisNombreProyectos  = new ArrayList<>();
-        for (Proyecto p : listProyectos) {
-            lisNombreProyectos.add(p.getNombre());
-        }
+
         mav.addObject("ingreso", ingAux);
         mav.addObject("clientes", clienteRepo.findAll());
-        mav.addObject("proyectos", lisNombreProyectos);
+        mav.addObject("proyectos", proyectoRepo.findAll());
 
 
         return mav;

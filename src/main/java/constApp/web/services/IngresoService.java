@@ -21,8 +21,12 @@ public class IngresoService {
 
     @Autowired
     private ClienteDAO clienteRepo;
+
     @Autowired
     private BalanceService balanceService;
+
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
 
     public ArrayList<Ingreso> getAllIngresos() {
@@ -36,18 +40,22 @@ public class IngresoService {
     public Ingreso retornaIngresoActualizado(Ingreso ingreso) {
 //        Gasto g = new Gasto();
 
-        if (ingreso.getCliente_id() != null) {
+        if (ingreso.getCliente_id() != null && ingreso.getObra() != null) {
             Optional<Cliente> clienteAux = clienteRepo.findById(ingreso.getCliente_id().getId());
+            Optional<Proyecto> proyAux = proyectoRepo.findById(ingreso.getObra().getId());
 
-            if (clienteAux.isPresent() && clienteAux.get() != null) {
-//                clienteAux.get().getPagosCliente().add(ingreso);// Vincula el ingreso al Cliente
-//                clienteAux.get().actualizar_saldoPendiente(); // actualiza el saldo del cliente
+
+            if (clienteAux.isPresent() && proyAux.isPresent()) {
 
                 ingreso.setCliente_id(clienteAux.get()); // Vincula el Cliente al ingreso
+                ingreso.setObra(proyAux.get()); // Vincula el Proyecto al ingreso
+
             }
         }
         else {
             ingreso.setCliente_id(null);
+            ingreso.setObra(null);
+
         }
         return ingreso;
     }

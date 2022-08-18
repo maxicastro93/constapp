@@ -20,7 +20,7 @@ public class ProveedorController {
     @Autowired
     private ProveedorDAO provRepo;
 
-    @GetMapping({"/proveedor"})
+    @GetMapping({"/proveedores"})
     public ModelAndView getAllProveedores() {
         ModelAndView mav = new ModelAndView("proveedores");
         mav.addObject("proveedores", provRepo.findAll());

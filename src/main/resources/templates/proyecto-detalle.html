@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+
+<head>
+
+    <div th:insert="fragments/fragmentos::header-principal"/>
+
+
+    <title>Proyecto</title>
+
+    <div th:insert="fragments/fragmentos::header-secundario"/>
+
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper" sec:authorize="isAuthenticated()">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div th:insert="fragments/fragmentos::side-bar"/>
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:insert="fragments/fragmentos::barra-sup-body"/>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800"><p th:text="'Proyecto: ' + ${proyecto.nombre}"></p></h1>
+
+
+                <!-- Total Pactado Cliente -->
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Informacion del Proyecto</h6>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="small font-weight-bold">Nombre<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${proyecto.nombre}"></p></div>
+                                <h4 class="small font-weight-bold">Gasto Proyectado en Pesos<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'$ ' + ${#numbers.formatDecimal(proyecto.gasto_proyectado_pesos, 1, 'POINT', 2, 'COMMA')}"></p></div>
+                                <h4 class="small font-weight-bold">Gasto Proyectado en Dolares<span class="float-right"></span></h4>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(proyecto.gasto_proyectado_dolares, 1, 'POINT', 2, 'COMMA')}"></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla Ingresos Proyecto -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Listado de Ingresos del Proyecto</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="movimientosTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Fecha</th>
+                                    <th>Periodo</th>
+                                    <th>Cliente</th>
+                                    <th>Tipo de Ingreso</th>
+                                    <th>Moneda</th>
+                                    <th>Importe</th>
+                                    <th>Proyecto/Obra</th>
+                                    <th>Obs</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ingreso: ${ingresosProyecto}">
+                                    <td th:text="${ingreso.id}" />
+                                    <td th:text="${ingreso.fecha}" />
+                                    <td th:text="${ingreso.periodo}" />
+                                    <div th:if="${ingreso.cliente_id != null}">
+                                        <td th:text="${ingreso.cliente_id.nombre}" />
+                                    </div>
+                                    <div th:if="${ingreso.cliente_id == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+                                    <td th:text="${ingreso.tipoIngreso}" />
+                                    <td th:text="${ingreso.moneda}" />
+                                    <div th:if="${ingreso.moneda == 'Dolares'}">
+                                        <td th:text="'USD ' + ${#numbers.formatDecimal(ingreso.monto, 1, 'POINT', 2, 'COMMA')}" />
+                                    </div>
+                                    <div th:if="${ingreso.moneda == 'Pesos'}">
+                                        <td th:text="'$ ' + ${#numbers.formatDecimal(ingreso.monto, 1, 'POINT', 2, 'COMMA')}" />
+                                    </div>
+                                    <div th:if="${ingreso.obra != null}">
+                                        <td th:text="${ingreso.obra.nombre}" />
+                                    </div>
+
+                                    <div th:if="${ingreso.obra == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>                                        <td th:text="${ingreso.observaciones}" />
+                                    <td>
+                                        <a th:href="@{/updateIngresoForm(ingresoId=${ingreso.id})}" class="btn btn-info">Modificar</a>
+
+                                        <a th:href="@{/deleteIngreso(ingresoId=${ingreso.id})}" class="btn btn-danger ml-2">Eliminar</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla Gastos del Proyecto -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Listado de Gastos del Proyecto</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="movimientosTable2" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Periodo</th>
+                                    <th>Tipo gasto</th>
+                                    <th>Rubro</th>
+                                    <th>Cuenta</th>
+                                    <th>Nro Comprobante</th>
+                                    <th>Caja origen</th>
+                                    <th>Monto</th>
+                                    <th>Estado</th>
+                                    <th>OC</th>
+                                    <th>Proveedor</th>
+                                    <th>Proyecto</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="gasto: ${gastosProyecto}">
+                                    <td th:text="${gasto.id}" />
+                                    <td th:text="${gasto.periodo}" />
+                                    <td th:text="${gasto.tipo_gasto}" />
+                                    <div th:if="${gasto.rubro != null}">
+                                        <td th:text="${gasto.rubro}" />
+                                    </div>
+                                    <div th:if="${gasto.rubro == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+                                    <div th:if="${gasto.cuenta != null}">
+                                        <td th:text="${gasto.cuenta}" />
+                                    </div>
+                                    <div th:if="${gasto.cuenta == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+                                    <td th:text="${gasto.nro_comprobante}" />
+                                    <td th:text="${gasto.moneda}" />
+                                    <div th:if="${gasto.moneda == 'Dolares'}">
+                                        <td th:text="'USD ' + ${#numbers.formatDecimal(gasto.monto, 1, 'POINT', 2, 'COMMA')}" />
+                                    </div>
+                                    <div th:if="${gasto.moneda == 'Pesos'}">
+                                        <td th:text="'$ ' + ${#numbers.formatDecimal(gasto.monto, 1, 'POINT', 2, 'COMMA')}" />
+                                    </div>
+                                    <td th:text="${gasto.estado}" />
+                                    <div th:if="${gasto.gasto_OC != null}">
+                                        <td th:text="${gasto.gasto_OC.id}" />
+                                    </div>
+                                    <div th:if="${gasto.gasto_OC == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+
+                                    <div th:if="${gasto.proveedor_id != null}">
+                                        <td th:text="${gasto.proveedor_id.nombre}" />
+                                    </div>
+
+                                    <div th:if="${gasto.proveedor_id == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+                                    <div th:if="${gasto.obra != null}">
+                                        <td th:text="${gasto.obra.nombre}" />
+                                    </div>
+
+                                    <div th:if="${gasto.obra == null}">
+                                        <td th:text="${'-'}" />
+                                    </div>
+
+                                    <td>
+                                        <a th:href="@{/showUpdateForm(gastoId=${gasto.id})}" class="btn btn-info">Modificar</a>
+
+                                        <a th:href="@{/deleteGasto(gastoId=${gasto.id})}" class="btn btn-danger ml-2">Eliminar</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a th:href="@{/clientes}">Volver</a>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; ConstruirApp 2022</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+<script>
+			$(document).ready(function() {
+				$("#movimientosTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+            $(document).ready(function() {
+				$("#movimientosTable2").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+	</script>
+
+</body>
+
+</html>

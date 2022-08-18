@@ -1,8 +1,5 @@
 package constApp.web.controllers;
-import constApp.web.DAO.ClienteDAO;
-import constApp.web.DAO.IngresoDAO;
-import constApp.web.DAO.ProveedorDAO;
-import constApp.web.DAO.GastoDAO;
+import constApp.web.DAO.*;
 import constApp.web.models.Cliente;
 import constApp.web.models.Ingreso;
 import constApp.web.models.Proveedor;
@@ -25,6 +22,8 @@ public class ClienteController {
     private IngresoDAO ingresoRepo;
     @Autowired
     private ClienteDAO clienteRepo;
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
     @GetMapping({"/clientes"})
     public ModelAndView getAllClientes() {
@@ -46,6 +45,8 @@ public class ClienteController {
         ModelAndView mav = new ModelAndView("add-cliente");
         Cliente newCliente = new Cliente();
         mav.addObject("cliente", newCliente);
+        mav.addObject("proyectos", proyectoRepo.findAll());
+
         return mav;
     }
     @GetMapping("/verDetalleCliente")
@@ -55,6 +56,8 @@ public class ClienteController {
         mav.addObject("cliente", cliente);
         mav.addObject("movimientos", cliente.getPagosCliente());
         mav.addObject("totalAdeudado", cliente.getSaldo_pendiente());
+//        mav.addObject("proyectos", proyectoRepo.findAll());
+
 
         return mav;
     }
@@ -83,6 +86,8 @@ public class ClienteController {
         ModelAndView mav = new ModelAndView("add-cliente");
         Cliente cliente = clienteRepo.findById(clienteId).get();
         mav.addObject("cliente", cliente);
+        mav.addObject("proyectos", proyectoRepo.findAll());
+
 
         return mav;
     }

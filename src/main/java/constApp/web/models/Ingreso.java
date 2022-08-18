@@ -53,8 +53,9 @@ public class Ingreso {
     @Getter @Setter @Column(name = "monto")
     private BigDecimal monto;
 
-    @Getter @Setter @Column(name = "obra")
-    private String obra;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "obra")
+    private Proyecto obra;
 
     @Getter @Setter @Column(name = "observaciones")
     private String observaciones;

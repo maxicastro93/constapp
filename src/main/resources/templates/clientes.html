@@ -72,7 +72,7 @@
                                         <td th:text="${cliente.domicilio}" />
                                         <td th:text="${cliente.telefono}" />
                                         <td th:text="'USD ' + ${#numbers.formatDecimal(cliente.saldo_pendiente, 1, 'POINT', 2, 'COMMA')}" />
-                                        <td th:text="${cliente.obra}" />
+                                        <td th:text="${cliente.obra.nombre}" />
                                         <td>
                                             <a th:href="@{/verDetalleCliente(clienteId=${cliente.id})}" class="btn btn-primary">Ver Detalle</a>
 

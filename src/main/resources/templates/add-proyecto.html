@@ -53,7 +53,8 @@
                                 <label>Nombre Proyecto</label>
                                 <input type="text" th:field="*{nombre}" class="form-control mb-4" placeholder="Nombre Proyecto" required/>
                                 <label>Gasto Total Estimado/Proyectado</label>
-                                <input type="number" th:field="*{gasto_proyectado}" class="form-control mb-4" placeholder="Gasto Total Estimado / Proyectado" />
+                                <input type="number" th:field="*{gasto_proyectado_pesos}" class="form-control mb-4" placeholder="Gasto Total Estimado / Proyectado" />
+                                <input type="number" th:field="*{gasto_proyectado_dolares}" class="form-control mb-4" placeholder="Gasto Total Estimado / Proyectado" />
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>
                                 <input type="hidden" th:field="*{id}" />
