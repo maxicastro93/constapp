@@ -71,8 +71,10 @@ public class ClienteController {
         if (cliente.getId() != null && clienteRepo.findById(cliente.getId()).isPresent()){
             cliente.crearSaldo_pendiente(); // actualiza el saldo total inicial del cliente
             List<Ingreso> pagosDelCliente = cliente.getPagosCliente();
-            for (Ingreso ingreso : pagosDelCliente) {
-                cliente.actualizar_saldoPendiente();
+            if(pagosDelCliente != null) {
+                for (Ingreso ingreso : pagosDelCliente) {
+                    cliente.actualizar_saldoPendiente();
+                }
             }
         }
         cliente.crearSaldo_pendiente(); // Ingresa el saldo total inicial del cliente

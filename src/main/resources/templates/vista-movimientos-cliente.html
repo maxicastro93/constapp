@@ -41,7 +41,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Cliente: ' + ${cliente.nombre} + ' - ' + ${cliente.obra.nombre}"></p></h1>
+                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Cliente: ' + ${cliente.nombre} + ' - ' + ${cliente.obra_cliente.nombre}"></p></h1>
 
                     <!-- Adeudado por Cliente  -->
                     <div class="col-xl-3 col-md-6 mb-4">
@@ -96,7 +96,7 @@
                                     <h5 class="small font-weight-bold">Telefono<span class="float-right"></span></h5>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.telefono}"></p></div>
                                     <h5 class="small font-weight-bold">Proyecto<span class="float-right"></span></h5>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.obra.nombre}"></p></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${cliente.obra_cliente.nombre}"></p></div>
 
 
                                 </div>
@@ -127,7 +127,7 @@
                                         <td th:text="${movimiento.fecha}" />
                                         <td th:text="${movimiento.tipoIngreso}" />
                                         <td th:text="'USD ' + ${#numbers.formatDecimal(movimiento.monto, 1, 'POINT', 2, 'COMMA')}" />
-                                        <td th:text="${movimiento.obra.nombre}" />
+                                        <td th:text="${movimiento.obra_ingreso.nombre}" />
                                         <td th:text="${movimiento.observaciones}" />
                                     </tr>
                                     </tbody>

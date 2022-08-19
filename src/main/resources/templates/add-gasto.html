@@ -132,13 +132,13 @@
                                 </div>
 
                                 <label>Proyecto</label>
-                                <div th:if="${obra == null}">
-                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                <div th:if="${obra_gasto == null}">
+                                    <select th:field="*{obra_gasto.id}" name="obra_gasto" class="form-control mb-4">
                                         <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>
-                                <div th:if="${obra != null}">
-                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                <div th:if="${obra_gasto != null}">
+                                    <select th:field="*{obra_gasto.id}" name="obra_gasto" class="form-control mb-4">
                                         <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>

@@ -111,11 +111,11 @@
                                         <div th:if="${gasto.proveedor_id == null}">
                                             <td th:text="${'-'}" />
                                         </div>
-                                        <div th:if="${gasto.obra != null}">
-                                            <td th:text="${gasto.obra.nombre}" />
+                                        <div th:if="${gasto.obra_gasto != null}">
+                                            <td th:text="${gasto.obra_gasto.nombre}" />
                                         </div>
 
-                                        <div th:if="${gasto.obra == null}">
+                                        <div th:if="${gasto.obra_gasto == null}">
                                             <td th:text="${'-'}" />
                                         </div>
 

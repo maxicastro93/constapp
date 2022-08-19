@@ -70,8 +70,8 @@ public class Cliente {
     private BigDecimal interes_diario;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "obra")
-    private Proyecto obra;
+    @JoinColumn(name = "obra_cliente")
+    private Proyecto obra_cliente;
 
     @Getter @Setter @Column(name = "empresa_id")
     private String empresa_id;

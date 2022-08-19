@@ -63,7 +63,7 @@
                                 </div>
                                 <div th:if="${clientes != null}">
                                     <select th:field="*{cliente_id.id}" name="cliente_id" class="form-control mb-4">
-                                        <option th:each="cliente :${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' - '+${cliente.obra}" />
+                                        <option th:each="cliente :${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' - '+${cliente.obra_cliente.nombre}" />
                                     </select>
                                 </div>
 
@@ -88,13 +88,13 @@
                                 <input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del ingreso" required/>
 
                                 <label>Proyecto</label>
-                                <div th:if="${obra == null}">
-                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                <div th:if="${obra_ingreso == null}">
+                                    <select th:field="*{obra_ingreso.id}" name="obra_ingreso" class="form-control mb-4">
                                         <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>
-                                <div th:if="${obra != null}">
-                                    <select th:field="*{obra.id}" name="obra" class="form-control mb-4">
+                                <div th:if="${obra_ingreso != null}">
+                                    <select th:field="*{obra_ingreso.id}" name="obra_ingreso" class="form-control mb-4">
                                         <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
                                     </select>
                                 </div>

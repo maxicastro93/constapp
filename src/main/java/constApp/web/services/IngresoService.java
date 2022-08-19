@@ -40,21 +40,21 @@ public class IngresoService {
     public Ingreso retornaIngresoActualizado(Ingreso ingreso) {
 //        Gasto g = new Gasto();
 
-        if (ingreso.getCliente_id() != null && ingreso.getObra() != null) {
+        if (ingreso.getCliente_id() != null && ingreso.getObra_ingreso() != null) {
             Optional<Cliente> clienteAux = clienteRepo.findById(ingreso.getCliente_id().getId());
-            Optional<Proyecto> proyAux = proyectoRepo.findById(ingreso.getObra().getId());
+            Optional<Proyecto> proyAux = proyectoRepo.findById(ingreso.getObra_ingreso().getId());
 
 
             if (clienteAux.isPresent() && proyAux.isPresent()) {
 
                 ingreso.setCliente_id(clienteAux.get()); // Vincula el Cliente al ingreso
-                ingreso.setObra(proyAux.get()); // Vincula el Proyecto al ingreso
+                ingreso.setObra_ingreso(proyAux.get()); // Vincula el Proyecto al ingreso
 
             }
         }
         else {
             ingreso.setCliente_id(null);
-            ingreso.setObra(null);
+            ingreso.setObra_ingreso(null);
 
         }
         return ingreso;

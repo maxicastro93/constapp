@@ -45,7 +45,7 @@ public class GastoService {
 
         Long idOC = gasto.getGasto_OC().getId();
         Long idProveedor = gasto.getProveedor_id().getId();
-        Long idProyecto = gasto.getObra().getId();
+        Long idProyecto = gasto.getObra_gasto().getId();
 
 
 
@@ -56,14 +56,14 @@ public class GastoService {
         if (auxOC.isPresent() && provAux.isPresent()) {
             gasto.setGasto_OC(auxOC.get());
             gasto.setProveedor_id(provAux.get());
-            gasto.setObra(proyAux.get());
+            gasto.setObra_gasto(proyAux.get());
 
             //            provAux.get().getGastosProveedor().add(gasto); ESTO VA EN SERVICE DE PROVEEDOR
         }
         else{
             gasto.setGasto_OC(null);
             gasto.setProveedor_id(null);
-            gasto.setObra(null);
+            gasto.setObra_gasto(null);
 
         }
 

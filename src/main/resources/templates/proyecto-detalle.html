@@ -82,7 +82,7 @@
                                     <th>Importe</th>
                                     <th>Proyecto/Obra</th>
                                     <th>Obs</th>
-                                    <th>Acciones</th>
+<!--                                    <th>Acciones</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,18 +104,19 @@
                                     <div th:if="${ingreso.moneda == 'Pesos'}">
                                         <td th:text="'$ ' + ${#numbers.formatDecimal(ingreso.monto, 1, 'POINT', 2, 'COMMA')}" />
                                     </div>
-                                    <div th:if="${ingreso.obra != null}">
-                                        <td th:text="${ingreso.obra.nombre}" />
+                                    <div th:if="${ingreso.obra_ingreso != null}">
+                                        <td th:text="${ingreso.obra_ingreso.nombre}" />
                                     </div>
 
-                                    <div th:if="${ingreso.obra == null}">
+                                    <div th:if="${ingreso.obra_ingreso == null}">
                                         <td th:text="${'-'}" />
-                                    </div>                                        <td th:text="${ingreso.observaciones}" />
-                                    <td>
-                                        <a th:href="@{/updateIngresoForm(ingresoId=${ingreso.id})}" class="btn btn-info">Modificar</a>
+                                    </div>
+                                    <td th:text="${ingreso.observaciones}" />
+<!--                                    <td>-->
+<!--                                        <a th:href="@{/updateIngresoForm(ingresoId=${ingreso.id})}" class="btn btn-info">Modificar</a>-->
 
-                                        <a th:href="@{/deleteIngreso(ingresoId=${ingreso.id})}" class="btn btn-danger ml-2">Eliminar</a>
-                                    </td>
+<!--                                        <a th:href="@{/deleteIngreso(ingresoId=${ingreso.id})}" class="btn btn-danger ml-2">Eliminar</a>-->
+<!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
@@ -145,7 +146,7 @@
                                     <th>OC</th>
                                     <th>Proveedor</th>
                                     <th>Proyecto</th>
-                                    <th>Acciones</th>
+<!--                                    <th>Acciones</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -188,19 +189,19 @@
                                     <div th:if="${gasto.proveedor_id == null}">
                                         <td th:text="${'-'}" />
                                     </div>
-                                    <div th:if="${gasto.obra != null}">
-                                        <td th:text="${gasto.obra.nombre}" />
+                                    <div th:if="${gasto.obra_gasto != null}">
+                                        <td th:text="${gasto.obra_gasto.nombre}" />
                                     </div>
 
-                                    <div th:if="${gasto.obra == null}">
+                                    <div th:if="${gasto.obra_gasto == null}">
                                         <td th:text="${'-'}" />
                                     </div>
 
-                                    <td>
-                                        <a th:href="@{/showUpdateForm(gastoId=${gasto.id})}" class="btn btn-info">Modificar</a>
+<!--                                    <td>-->
+<!--                                        <a th:href="@{/showUpdateForm(gastoId=${gasto.id})}" class="btn btn-info">Modificar</a>-->
 
-                                        <a th:href="@{/deleteGasto(gastoId=${gasto.id})}" class="btn btn-danger ml-2">Eliminar</a>
-                                    </td>
+<!--                                        <a th:href="@{/deleteGasto(gastoId=${gasto.id})}" class="btn btn-danger ml-2">Eliminar</a>-->
+<!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
@@ -209,7 +210,7 @@
                 </div>
 
 
-                <a th:href="@{/clientes}">Volver</a>
+                <a th:href="@{/proyectos}">Volver</a>
 
 
             </div>

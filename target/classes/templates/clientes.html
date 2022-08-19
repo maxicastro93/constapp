@@ -72,7 +72,7 @@
                                         <td th:text="${cliente.domicilio}" />
                                         <td th:text="${cliente.telefono}" />
                                         <td th:text="'USD ' + ${#numbers.formatDecimal(cliente.saldo_pendiente, 1, 'POINT', 2, 'COMMA')}" />
-                                        <td th:text="${cliente.obra.nombre}" />
+                                        <td th:text="${cliente.obra_cliente.nombre}" />
                                         <td>
                                             <a th:href="@{/verDetalleCliente(clienteId=${cliente.id})}" class="btn btn-primary">Ver Detalle</a>
 
@@ -97,7 +97,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Grupo Bicastro 2022</span>
                     </div>
                 </div>
             </footer>

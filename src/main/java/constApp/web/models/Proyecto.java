@@ -35,15 +35,15 @@ public class Proyecto {
     @Getter @Setter @Column(name = "gasto_proyectado_dolares")
     private BigDecimal gasto_proyectado_dolares;
 
-    @OneToMany(mappedBy = "obra", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "obra_ingreso", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
     private List<Ingreso> ingresosProyecto;
 
-    @OneToMany(mappedBy = "obra", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "obra_gasto", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
     private List<Gasto> gastosProyecto;
 
-    @OneToMany(mappedBy = "obra", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "obra_cliente", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
     private List<Cliente> clientesProyecto;
 
