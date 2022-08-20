@@ -60,34 +60,70 @@
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
-
+                    <!-- Restante  -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Restante por pagar</div>
+                                        <div th:if="${oc.moneda == 'Dolares'}">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(restantePorPagar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
+                                        <div th:if="${oc.moneda == 'Pesos'}">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'$ ' + ${#numbers.formatDecimal(restantePorPagar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Total Pactado Cliente -->
                     <div class="row">
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Detalle Orden de Compra</h6>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="small font-weight-bold">Nro OC<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.id}"></p></div>
-                                <h4 class="small font-weight-bold">Fecha<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.fecha}"></p></div>
-                                <h4 class="small font-weight-bold">Creador<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.usuario_id}"></p></div>
-                                <h4 class="small font-weight-bold">Proveedor<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.proveedor_id}"></p></div>
-                                <h4 class="small font-weight-bold">Moneda<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.moneda}"></p></div>
-                                <h4 class="small font-weight-bold">Monto Total<span class="float-right"></span></h4>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${#numbers.formatDecimal(oc.montototal, 1, 'POINT', 2, 'COMMA')}"></p></div>
-
-
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Detalle Orden de Compra</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">Nro OC<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.id}"></p></div>
+                                    <h4 class="small font-weight-bold">Fecha<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.fecha}"></p></div>
+                                    <h4 class="small font-weight-bold">Proyecto<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.obra_oc.nombre}"></p></div>
+                                    <h4 class="small font-weight-bold">Creador<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.usuario_id}"></p></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Detalle Orden de Compra</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">Proveedor<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.proveedor_id}"></p></div>
+                                    <h4 class="small font-weight-bold">Descuentos<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${#numbers.formatDecimal(oc.descuento, 1, 'POINT', 2, 'COMMA')}"></p></div>
+                                    <h4 class="small font-weight-bold">Moneda<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.moneda}"></p></div>
+                                    <h4 class="small font-weight-bold">Monto Total<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${#numbers.formatDecimal(oc.montototal, 1, 'POINT', 2, 'COMMA')}"></p></div>
+                                </div>
+                            </div>
+
+
                         </div>
-<!--                        <div class="col-xl-4 col-lg-5">-->
+
+
+
+
+                        <!--                        <div class="col-xl-4 col-lg-5">-->
 <!--                            <div class="card shadow mb-4">-->
 <!--                                <div class="card-header py-3">-->
 <!--                                    <h6 class="m-0 font-weight-bold text-primary">Informacion del Cliente</h6>-->
@@ -128,7 +164,7 @@
                                         <td th:text="${ocdet.fechaPago}" />
                                         <td th:text="${ocdet.detalle}" />
                                         <td th:text="'$ ' + ${#numbers.formatDecimal(ocdet.importe, 1, 'POINT', 2, 'COMMA')}" />
-                                        <td th:text="${oc.obra}" />
+                                        <td th:text="${oc.obra_oc.nombre}" />
                                     </tr>
                                     </tbody>
                                 </table>

@@ -59,12 +59,17 @@
                                 <label>Fecha</label>
                                 <input type="date" th:value="${oc.fecha}" name="fecha" class="form-control mb-4" placeholder="Fecha" required/>
 
-                                <label>Proyecto/Obra</label>
-                                <select type="text" th:value="${oc.obra}" name="obra" class="form-control mb-4"
-                                        placeholder="Proyecto/Obra" required>
-                                    <option value="San Nicanor" selected>San Nicanor</option>
-                                    <option value="Fiorenza">Fiorenza</option>
-                                </select>
+                                <label>Proyecto</label>
+                                <div th:if="${oc.obra_oc == null}">
+                                    <select th:field="${oc.obra_oc.id}" name="obra_oc" class="form-control mb-4">
+                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />
+                                    </select>
+                                </div>
+<!--                                <div th:if="${oc.obra_oc != null}">-->
+<!--                                    <select th:field="${oc.obra_oc.id}" name="obra_oc" class="form-control mb-4">-->
+<!--                                        <option th:each="o :${proyectos}" th:value="${o.id}" th:text="${o.nombre}" />-->
+<!--                                    </select>-->
+<!--                                </div>-->
 
                                 <label>Detalle</label>
                                 <div id="rowDetalle" >
@@ -80,20 +85,27 @@
                                     </br>
                                 </div>
 
-                                <label>Moneda</label>
+                                <label class="mt-2">Moneda</label>
                                 <select type="text" th:value="${oc.moneda}" name="moneda" class="form-control mb-4"
                                         placeholder="Moneda" required>
                                     <option value="Pesos" selected>Pesos</option>
                                     <option value="Dolares">Dolares</option>
                                 </select>
 
+                                <label>Descuento</label>
+                                <input id="descuento" type="number" min="0.00" max="100000000000.00" step="0.01" th:value="${oc.descuento}" name="descuento" class="form-control mb-4" placeholder="Descuento" required/>
+
                                 <label>Importe Total</label>
                                 <input id="montoTotal" type="number" min="0.00" max="100000000000.00" step="0.01" th:value="${oc.montototal}" name="montototal" class="form-control mb-4" placeholder="Monto Total" required/>
 
-                                <label>Proveedeor/Comercio</label>
+                                <label>Proveedor/Comercio</label>
                                 <select th:value="${oc.proveedor_id}" name="proveedor_id" class="form-control mb-4" required>
                                     <option th:each="proveedor :${proveedores}" th:value="${proveedor.nombre}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                 </select>
+
+                                <label>Observaciones</label>
+                                <input id="observaciones" type="text" th:value="${oc.observaciones}" name="observaciones" class="form-control mb-4" placeholder="Observaciones" required/>
+
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>
                                 <input type="hidden" th:field="${oc.id}" />

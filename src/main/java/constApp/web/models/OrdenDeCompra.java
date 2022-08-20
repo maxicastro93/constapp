@@ -39,8 +39,9 @@ public class OrdenDeCompra {
     @Getter @Setter @Column(name = "fecha")
     private String fecha;
 
-    @Getter @Setter @Column(name = "obra")
-    private String obra;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "obra_oc")
+    private Proyecto obra_oc;
 
     @Getter @Setter @Column(name = "moneda")
     private String moneda;
@@ -48,8 +49,14 @@ public class OrdenDeCompra {
     @Getter @Setter @Column(name = "montototal")
     private BigDecimal montototal;
 
+    @Getter @Setter @Column(name = "descuento")
+    private BigDecimal descuento;
+
     @Getter @Setter @Column(name = "proveedor_id")
     private String proveedor_id;
+
+    @Getter @Setter @Column(name = "observaciones")
+    private String observaciones;
 
 //    @ManyToOne
     @Getter @Setter @Column(name = "usuario_id")

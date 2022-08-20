@@ -237,5 +237,16 @@ public class DashboardServices {
 
     }
 
+//    public BigDecimal existenciasCajaPesos(){
+//
+//        return sumatoriaIngresos;
+//    }
+
+    //    public BigDecimal existenciasCajaDolares(){
+//
+//        return sumatoriaIngresos;
+//    }
+
+
 
 }

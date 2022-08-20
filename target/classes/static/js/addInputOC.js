@@ -51,8 +51,9 @@ function calculaMontoTotal(){
         var valor12 = Number($('#detalleMonto12').val());
         var valor13 = Number($('#detalleMonto13').val());
         var valor14 = Number($('#detalleMonto14').val());
+        var descuento = Number($('#descuento').val());
 
-        var resultado = valor0 +valor1+ valor3+ valor4+ valor5 + valor6 + valor7+ valor8+ valor9+ valor10+ valor11+ valor12+ valor13;
+        var resultado = (valor0 +valor1+ valor3+ valor4+ valor5 + valor6 + valor7+ valor8+ valor9+ valor10+ valor11+ valor12+ valor13)-descuento;
         var redondeado = resultado.toFixed(2);
 
         document.getElementById('montoTotal').value = redondeado;

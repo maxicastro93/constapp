@@ -3,10 +3,12 @@ package constApp.web.controllers;
 import constApp.web.DAO.OCDetalleDAO;
 import constApp.web.DAO.OrdenDeCompraDAO;
 import constApp.web.DAO.ProveedorDAO;
+import constApp.web.DAO.ProyectoDAO;
 import constApp.web.Utils.OCDetalleListDto;
 import constApp.web.models.OCDetalle;
 import constApp.web.models.OrdenDeCompra;
 import constApp.web.models.Proveedor;
+import constApp.web.models.Proyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class OCController {
@@ -27,11 +30,16 @@ public class OCController {
     private OCDetalleDAO ocDetRepo;
     @Autowired
     private ProveedorDAO provRepo;
+    @Autowired
+    private ProyectoDAO proyectoRepo;
 
     @GetMapping({"/oc"})
     public ModelAndView getAllOC() {
         ModelAndView mav = new ModelAndView("oc");
         mav.addObject("oc", ocRepo.findAll());
+
+        // calcular aca lo que falta por pagar
+
         return mav;
     }
 
@@ -50,13 +58,18 @@ public class OCController {
         mav.addObject("proveedores", provRepo.findAll());
         mav.addObject("oc", newOC);
         mav.addObject("ocdetallelist", listOCdet);
+        mav.addObject("proyectos", proyectoRepo.findAll());
+
         return mav;
     }
 
     @PostMapping(value = "/saveOC")
-    public String saveOC(@ModelAttribute OrdenDeCompra oc, @ModelAttribute OCDetalleListDto ocdetallelist, Model model) {
+    public String saveOC(@ModelAttribute OrdenDeCompra oc,
+                         @ModelAttribute OCDetalleListDto ocdetallelist,
+                         Model model) {
 
         OCDetalleListDto ocDetalleListAux = new OCDetalleListDto();
+
 
         // Agarra el array y borra los elementos vacios
         for (OCDetalle ocdetaux : ocdetallelist.getOcDetalleList()) {
@@ -70,8 +83,16 @@ public class OCController {
             model.addAttribute("ocdetalles", ocDetRepo.findAll());
             System.out.println(oc.getFecha());
             System.out.println(oc.getMontototal());
+
+
+
 //        Proveedor provAux = provRepo.findById(gasto.getProv_id()).get();
 //        gasto.setProveedor_id(provAux);
+
+
+
+        Optional<Proyecto> proyAux = proyectoRepo.findById(oc.getObra_oc().getId());
+        oc.setObra_oc(proyAux.get());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         oc.setUsuario_id(currentPrincipalName);
@@ -87,6 +108,8 @@ public class OCController {
         mav.addObject("oc", oc);
         mav.addObject("ocdetallelist", oc.getDetalleOC());
         mav.addObject("proveedores", provRepo.findAll());
+        mav.addObject("proyectos", proyectoRepo.findAll());
+
         return mav;
     }
 
@@ -97,6 +120,8 @@ public class OCController {
         mav.addObject("oc", oc);
         mav.addObject("ocdetalle", oc.getDetalleOC());
         mav.addObject("proveedores", provRepo.findAll());
+        mav.addObject("proyectos", proyectoRepo.findAll());
+
         return mav;
     }
 

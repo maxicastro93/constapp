@@ -125,13 +125,14 @@
                                         <div th:if="${ingreso.moneda == 'Pesos'}">
                                             <td th:text="'$ ' + ${#numbers.formatDecimal(ingreso.monto, 1, 'POINT', 2, 'COMMA')}" />
                                         </div>
-                                        <div th:if="${ingreso.obra != null}">
-                                            <td th:text="${ingreso.obra.nombre}" />
+                                        <div th:if="${ingreso.obra_ingreso != null}">
+                                            <td th:text="${ingreso.obra_ingreso.nombre}" />
                                         </div>
 
-                                        <div th:if="${ingreso.obra == null}">
+                                        <div th:if="${ingreso.obra_ingreso == null}">
                                             <td th:text="${'-'}" />
-                                        </div>                                        <td th:text="${ingreso.observaciones}" />
+                                        </div>
+                                        <td th:text="${ingreso.observaciones}" />
                                         <td>
                                             <a th:href="@{/updateIngresoForm(ingresoId=${ingreso.id})}" class="btn btn-info">Modificar</a>
 
@@ -169,7 +170,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; ConstruirApp 2022</span>
+                        <span>Copyright &copy; Grupo Bicastro 2022</span>
                     </div>
                 </div>
             </footer>

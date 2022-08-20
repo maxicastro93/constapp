@@ -76,7 +76,7 @@
                                     <div th:if="${oc.moneda == 'Pesos'}">
                                         <td th:text="'$ ' + ${#numbers.formatDecimal(oc.montototal, 1, 'POINT', 2, 'COMMA')}" />
                                     </div>
-                                    <td th:text="${oc.obra}" />
+                                    <td th:text="${oc.obra_oc.nombre}" />
                                     <td th:text="${oc.usuario_id}" />
                                     <td th:text="${oc.proveedor_id}" />
                                     <td>

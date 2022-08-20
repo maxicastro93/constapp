@@ -47,6 +47,10 @@ public class Proyecto {
     @Getter @Setter
     private List<Cliente> clientesProyecto;
 
+    @OneToMany(mappedBy = "obra_oc", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @Getter @Setter
+    private List<OrdenDeCompra> ocProyecto;
+
 }
 ///// AGREGAR EN CADA CONTROLLER EL REPO DE PROYECTO
 //// Y EN CADA VISTA .HMTL TAMBIEN EN PROYECTO
