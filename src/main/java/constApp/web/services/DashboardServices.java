@@ -237,15 +237,16 @@ public class DashboardServices {
 
     }
 
-//    public BigDecimal existenciasCajaPesos(){
-//
-//        return sumatoriaIngresos;
-//    }
+    public BigDecimal existenciasCajaPesos(){
+        BigDecimal cajaPesos = sumatoriaTotalIngresosPesos().subtract(sumatoriaTotalGastosPesos());
+        return cajaPesos;
+    }
 
-    //    public BigDecimal existenciasCajaDolares(){
-//
-//        return sumatoriaIngresos;
-//    }
+    public BigDecimal existenciasCajaDolares(){
+        BigDecimal cajaDolares = sumatoriaTotalIngresosDolares().subtract(sumatoriaTotalGastosDolares());
+
+        return cajaDolares;
+    }
 
 
 

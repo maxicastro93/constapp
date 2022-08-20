@@ -84,8 +84,14 @@
                                     <option value="Dolares">Dolares</option>
                                 </select>
 
+                                <label>Subtotal sin Interes</label>
+                                <input id="subtotal"type="number" min="0.00" max="10000000.00" step="0.01" class="form-control mb-4" placeholder="Importe del ingreso"/>
+
+                                <label>Interes por Atraso</label>
+                                <input id="interes" type="number" min="0.00" max="10000000.00" step="0.01" class="form-control mb-4" placeholder="Importe del Interes" />
+
                                 <label>Importe</label>
-                                <input type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del ingreso" required/>
+                                <input id="total" type="number" min="0.00" max="10000000.00" step="0.01" th:field="*{monto}" class="form-control mb-4" placeholder="Importe del ingreso" required/>
 
                                 <label>Proyecto</label>
                                 <div th:if="${obra_ingreso == null}">
@@ -128,7 +134,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; MC 2020</span>
+                    <span>Copyright &copy; Grupo Bicastro 2020</span>
                 </div>
             </div>
         </footer>
@@ -174,6 +180,7 @@
 
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin-2.min.js"></script>
+<script src="js/calculoInteresIngreso.js"></script>
 
 <!-- Page level plugins -->
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>

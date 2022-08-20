@@ -54,6 +54,8 @@ public class DashboardController {
         mav.addObject("listGraficoIngresosAnualesDolares", listGraficoIngresosAnualesDolares);
         mav.addObject("listGraficoGastosPesosDolares", listGraficoGastosPesosDolares);
         mav.addObject("listGraficoIngresosPesosDolares", listGraficoIngresosPesosDolares);
+        mav.addObject("cajaPesos", dashServices.existenciasCajaPesos());
+        mav.addObject("cajaDolares", dashServices.existenciasCajaDolares());
 
 
         return mav;
