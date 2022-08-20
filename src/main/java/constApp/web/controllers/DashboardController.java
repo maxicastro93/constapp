@@ -46,6 +46,11 @@ public class DashboardController {
         BigDecimal gastosDolares = dashServices.sumatoriaTotalGastosDolares();
         BigDecimal gastosPesos = dashServices.sumatoriaTotalGastosPesos();
 
+        BigDecimal cajaPesos = dashServices.existenciasCajaPesos();
+        BigDecimal cajaDolares = dashServices.existenciasCajaDolares();
+
+
+
         mav.addObject("gastosPesos", gastosPesos);
         mav.addObject("gastosDolares", gastosDolares);
         mav.addObject("listGraficoGastosAnualesPesos", listGraficoGastosAnualesPesos);
@@ -54,7 +59,7 @@ public class DashboardController {
         mav.addObject("listGraficoIngresosAnualesDolares", listGraficoIngresosAnualesDolares);
         mav.addObject("listGraficoGastosPesosDolares", listGraficoGastosPesosDolares);
         mav.addObject("listGraficoIngresosPesosDolares", listGraficoIngresosPesosDolares);
-        mav.addObject("cajaPesos", dashServices.existenciasCajaPesos());
+        mav.addObject("cajaPesos", );
         mav.addObject("cajaDolares", dashServices.existenciasCajaDolares());
 
 
