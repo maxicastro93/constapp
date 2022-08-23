@@ -66,6 +66,8 @@ public class OrdenDeCompra {
     @Getter @Setter @Column(name = "empresa_id")
     private String empresa_id;
 
+    @Getter @Setter @Column(name = "estado")
+    private String estado;
 
     @OneToMany(mappedBy = "gasto_OC", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Getter @Setter
