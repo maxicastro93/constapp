@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cuentas").hasAnyAuthority("Admin","Socio")
                 .antMatchers("/rubros").hasAnyAuthority("Admin","Socio")
                 .antMatchers("/proyectos").hasAnyAuthority("Admin","Socio")
+                .antMatchers("/cambioDivisas").hasAnyAuthority("Admin","Socio")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
