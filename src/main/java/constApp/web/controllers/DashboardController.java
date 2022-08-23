@@ -27,9 +27,9 @@ public class DashboardController {
 //        return "/home";
 //    }
 
-    @GetMapping({"/home"})
+    @GetMapping({"/dashboard"})
     public ModelAndView getDataDashboard() {
-        ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("dashboard");
 
 
 

@@ -13,10 +13,18 @@ import java.text.ParseException;
 public class WebController {
 
     @GetMapping({"/"})
-    public String home(Model model) {
+    public String inicio(Model model) {
+
         return "redirect:/home";
     }
+    @GetMapping("/home")
+    public ModelAndView home() {
 
+        ModelAndView mav = new ModelAndView("home");
+
+
+        return mav;
+    }
 
     @GetMapping("/accessdenied")
     public ModelAndView restricted() {
