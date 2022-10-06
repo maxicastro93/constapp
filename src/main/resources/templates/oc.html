@@ -62,6 +62,7 @@
                                     <th>Obra/Proyecto</th>
                                     <th>Creador</th>
                                     <th>Proveedor</th>
+                                    <th>Descripcion</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -79,6 +80,8 @@
                                     <td th:text="${oc.obra_oc.nombre}" />
                                     <td th:text="${oc.usuario_id}" />
                                     <td th:text="${oc.proveedor_id}" />
+                                    <td th:text="${oc.observaciones}" />
+
                                     <td>
                                         <a th:href="@{detalleOC(ocId=${oc.id})}" class="btn btn-primary">Ver Detalle</a>
 

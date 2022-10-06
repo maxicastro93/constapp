@@ -9,6 +9,7 @@ import constApp.web.models.OCDetalle;
 import constApp.web.models.OrdenDeCompra;
 import constApp.web.models.Proveedor;
 import constApp.web.models.Proyecto;
+import constApp.web.services.OCService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +34,13 @@ public class OCController {
     private ProveedorDAO provRepo;
     @Autowired
     private ProyectoDAO proyectoRepo;
+    @Autowired
+    private OCService ocService;
 
     @GetMapping({"/oc"})
     public ModelAndView getAllOC() {
         ModelAndView mav = new ModelAndView("oc");
-        mav.addObject("oc", ocRepo.findAll());
+        mav.addObject("oc", ocService.getListadoOC());
 
         // calcular aca lo que falta por pagar
 
@@ -117,10 +121,13 @@ public class OCController {
     public ModelAndView verDetalleOC(@RequestParam Long ocId) {
         ModelAndView mav = new ModelAndView("vista-detalle-oc");
         OrdenDeCompra oc = ocRepo.findById(ocId).get();
+        BigDecimal restantePorGastar = ocService.getRestantePorGastar(ocRepo.findById(ocId).get());
+
         mav.addObject("oc", oc);
         mav.addObject("ocdetalle", oc.getDetalleOC());
         mav.addObject("proveedores", provRepo.findAll());
         mav.addObject("proyectos", proyectoRepo.findAll());
+        mav.addObject("restantePorGastar", restantePorGastar);
 
         return mav;
     }

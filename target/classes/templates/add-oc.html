@@ -59,6 +59,9 @@
                                 <label>Fecha</label>
                                 <input type="date" th:value="${oc.fecha}" name="fecha" class="form-control mb-4" placeholder="Fecha" required/>
 
+                                <label>Descripción</label>
+                                <input id="observaciones" type="text" th:value="${oc.observaciones}" name="observaciones" class="form-control mb-4" placeholder="Observaciones" required/>
+
                                 <label>Proyecto</label>
                                 <div th:if="${oc.obra_oc == null}">
                                     <select th:field="${oc.obra_oc.id}" name="obra_oc" class="form-control mb-4">
@@ -102,9 +105,6 @@
                                 <select th:value="${oc.proveedor_id}" name="proveedor_id" class="form-control mb-4" required>
                                     <option th:each="proveedor :${proveedores}" th:value="${proveedor.nombre}" th:text="${proveedor.nombre}+' - '+${proveedor.rubro}" />
                                 </select>
-
-                                <label>Observaciones</label>
-                                <input id="observaciones" type="text" th:value="${oc.observaciones}" name="observaciones" class="form-control mb-4" placeholder="Observaciones" required/>
 
 
                                 <button type="submit" class="btn btn-primary col-4">Guardar</button>

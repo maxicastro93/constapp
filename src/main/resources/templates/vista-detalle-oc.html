@@ -41,7 +41,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Orden de Compra Nro: ' + ${oc.id}"></p></h1>
+                    <h1 class="h3 mb-2 text-gray-800"><p th:text="'Orden de Compra Nro: ' + ${oc.id} + ' - '+ ${oc.usuario_id}"></p></h1>
 
 <!--                    &lt;!&ndash; Adeudado por Cliente  &ndash;&gt;-->
 <!--                    <div class="col-xl-3 col-md-6 mb-4">-->
@@ -69,9 +69,9 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Restante por pagar</div>
                                         <div th:if="${oc.moneda == 'Dolares'}">
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(restantePorPagar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'USD ' + ${#numbers.formatDecimal(restantePorGastar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
                                         <div th:if="${oc.moneda == 'Pesos'}">
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'$ ' + ${#numbers.formatDecimal(restantePorPagar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="'$ ' + ${#numbers.formatDecimal(restantePorGastar, 1, 'POINT', 2, 'COMMA')}"></p></div>                                            </div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -91,12 +91,15 @@
                                 <div class="card-body">
                                     <h4 class="small font-weight-bold">Nro OC<span class="float-right"></span></h4>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.id}"></p></div>
-                                    <h4 class="small font-weight-bold">Fecha<span class="float-right"></span></h4>
+                                    <h4 class="small font-weight-bold">Fecha de creacion<span class="float-right"></span></h4>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.fecha}"></p></div>
                                     <h4 class="small font-weight-bold">Proyecto<span class="float-right"></span></h4>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.obra_oc.nombre}"></p></div>
-                                    <h4 class="small font-weight-bold">Creador<span class="float-right"></span></h4>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.usuario_id}"></p></div>
+                                    <h4 class="small font-weight-bold">Descripcion<span class="float-right"></span></h4>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.observaciones}"></p></div>
+
+<!--                                    <h4 class="small font-weight-bold">Creador<span class="float-right"></span></h4>-->
+<!--                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><p th:text="${oc.usuario_id}"></p></div>-->
                                 </div>
                             </div>
                         </div>
@@ -156,6 +159,7 @@
                                             <th>Fecha</th>
                                             <th>Detalle</th>
                                             <th>Importe</th>
+                                            <th>Fecha de Pago</th>
                                             <th>Proyecto/Obra</th>
                                         </tr>
                                     </thead>
@@ -164,6 +168,7 @@
                                         <td th:text="${ocdet.fechaPago}" />
                                         <td th:text="${ocdet.detalle}" />
                                         <td th:text="'$ ' + ${#numbers.formatDecimal(ocdet.importe, 1, 'POINT', 2, 'COMMA')}" />
+                                        <td th:text="${ocdet.fechaPago}" />
                                         <td th:text="${oc.obra_oc.nombre}" />
                                     </tr>
                                     </tbody>

@@ -8,6 +8,7 @@ import constApp.web.models.OrdenDeCompra;
 import constApp.web.models.Proveedor;
 import constApp.web.services.BalanceService;
 import constApp.web.services.GastoService;
+import constApp.web.services.OCService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class GastoController {
     @Autowired
     private ProveedorDAO provRepo;
     @Autowired
-    private OrdenDeCompraDAO ocRepo;
+    private OCService ocService;
     @Autowired
     private BalanceService balanceService;
     @Autowired
@@ -57,7 +58,7 @@ public class GastoController {
         Gasto newGasto = new Gasto();
         mav.addObject("gasto", newGasto);
         mav.addObject("proveedores", provRepo.findAll());
-        mav.addObject("ocs", ocRepo.findAll());
+        mav.addObject("ocs", ocService.getListadoCompletoOC());
         mav.addObject("rubros", rubroRepo.findAll());
         mav.addObject("cuentas", cuentaRepo.findAll());
         mav.addObject("proyectos", proyectoRepo.findAll());
@@ -88,7 +89,7 @@ public class GastoController {
         Gasto gasto = gastoService.getGastoById(gastoId);
         mav.addObject("gasto", gasto);
         mav.addObject("proveedores", provRepo.findAll());
-        mav.addObject("ocs", ocRepo.findAll());
+        mav.addObject("ocs", ocService.getListadoCompletoOC());
         mav.addObject("rubros", rubroRepo.findAll());
         mav.addObject("cuentas", cuentaRepo.findAll());
         mav.addObject("proyectos", proyectoRepo.findAll());

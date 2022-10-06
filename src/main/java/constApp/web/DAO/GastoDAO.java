@@ -13,4 +13,5 @@ public interface GastoDAO extends JpaRepository<Gasto, Long>{
 
     ArrayList<Gasto> findByPeriodoAndMoneda(String periodo, String moneda);
 
+
 }

@@ -68,6 +68,9 @@ public class Gasto {
     @Getter @Setter @Column(name = "rubro")
     private String rubro;
 
+    @Getter @Setter @Column(name = "tipo_cambio")
+    private String tipo_cambio_gasto;
+
     @Getter @Setter @Column(name = "cuenta")
     private String cuenta;
 
