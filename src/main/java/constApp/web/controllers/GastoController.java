@@ -45,7 +45,7 @@ public class GastoController {
     @GetMapping({"/gastos"})
     public ModelAndView getGastos() {
         ModelAndView mav = new ModelAndView("gastos");
-        ArrayList<Gasto> gastoAuxList = new ArrayList<>(gastoService.getAllGastos());
+        ArrayList<Gasto> gastoAuxList = new ArrayList<>(gastoService.getAllGastosDesc());
         mav.addObject("gastos", gastoAuxList);
 
         return mav;

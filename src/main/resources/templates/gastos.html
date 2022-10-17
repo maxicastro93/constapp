@@ -53,7 +53,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="responsiveTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="responsiveTable" width="100%" cellspacing="0" style="font-size: 0.8em">
                                     <thead>
                                         <tr>
                                             <th>id</th>
@@ -222,9 +222,6 @@
 			$(document).ready(function() {
 				$("#responsiveTable").DataTable(
 				{
-				    "columnDefs": [
-                    { "visible": false, "targets": 11 }
-                  ],
 				    dom: 'Bfrtip',
                     buttons: [
                         {
@@ -244,6 +241,7 @@
                             }
                         }
                     ],
+                    order: [0, 'desc'],
                     initComplete: function ()
                     {
                         this.api()

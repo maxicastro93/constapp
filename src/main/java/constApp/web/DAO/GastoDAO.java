@@ -13,6 +13,7 @@ public interface GastoDAO extends JpaRepository<Gasto, Long>{
 
     ArrayList<Gasto> findByPeriodoAndMoneda(String periodo, String moneda);
     ArrayList<Gasto> findByCuenta(String cuenta);
+    ArrayList<Gasto> findAllByOrderByIdDesc();
 
 
 }

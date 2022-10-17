@@ -37,6 +37,12 @@ public class GastoService {
         return gastoList;
 
     }
+    public ArrayList<Gasto> getAllGastosDesc() {
+        ArrayList<Gasto> gastoList = new ArrayList<Gasto>(gastoRepo.findAllByOrderByIdDesc());
+
+        return gastoList;
+
+    }
 
 
     public Gasto retornaGastoActualizado(Gasto gasto) {
