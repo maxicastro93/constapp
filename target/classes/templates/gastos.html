@@ -53,23 +53,40 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="responsiveTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="responsiveTable" width="100%" cellspacing="0" style="font-size: 0.8em">
                                     <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>Periodo</th>
-                                            <th>Rubro</th>
-                                            <th>Cuenta</th>
-                                            <th>Caja origen</th>
-                                            <th>Monto</th>
-                                            <th>TC</th>
-                                            <th>Estado</th>
-                                            <th>OC</th>
-                                            <th>Proveedor</th>
-                                            <th>Proyecto</th>
-                                            <th>Observaciones</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Periodo</th>
+                                        <th>Rubro</th>
+                                        <th>Cuenta</th>
+                                        <th>Caja origen</th>
+                                        <th>Monto</th>
+                                        <th>TC</th>
+                                        <th>Estado</th>
+                                        <th>OC</th>
+                                        <th>Proveedor</th>
+                                        <th>Proyecto</th>
+                                        <th>Observaciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Periodo</th>
+                                        <th>Rubro</th>
+                                        <th>Cuenta</th>
+                                        <th>Caja origen</th>
+                                        <th>Monto</th>
+                                        <th>TC</th>
+                                        <th>Estado</th>
+                                        <th>OC</th>
+                                        <th>Proveedor</th>
+                                        <th>Proyecto</th>
+                                        <th>Observaciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+
                                     </thead>
                                     <tbody>
                                     <tr th:each="gasto: ${gastos}">
@@ -132,24 +149,6 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Periodo</th>
-                                        <th>Rubro</th>
-                                        <th>Cuenta</th>
-                                        <th>Caja origen</th>
-                                        <th>Monto</th>
-                                        <th>TC</th>
-                                        <th>Estado</th>
-                                        <th>OC</th>
-                                        <th>Proveedor</th>
-                                        <th>Proyecto</th>
-                                        <th>Observaciones</th>
-
-                                        <!--                                        <th>Acciones</th>-->
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -193,7 +192,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
@@ -222,9 +221,6 @@
 			$(document).ready(function() {
 				$("#responsiveTable").DataTable(
 				{
-				    "columnDefs": [
-                    { "visible": false, "targets": 11 }
-                  ],
 				    dom: 'Bfrtip',
                     buttons: [
                         {
@@ -244,6 +240,7 @@
                             }
                         }
                     ],
+                    order: [0, 'desc'],
                     initComplete: function ()
                     {
                         this.api()
@@ -252,7 +249,7 @@
                         {
                             var column = this;
                             var select = $('<select class="form-control"><option value=""></option></select>')
-                                .appendTo($(column.footer()).empty())
+                                .appendTo($(column.header()).empty())
                                 .on('change', function () {
                                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
