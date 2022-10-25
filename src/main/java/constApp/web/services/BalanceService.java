@@ -2,7 +2,6 @@ package constApp.web.services;
 
 import constApp.web.DAO.BalanceDAO;
 import constApp.web.models.Balance;
-import constApp.web.models.Cliente;
 import constApp.web.models.Gasto;
 import constApp.web.models.Ingreso;
 import org.springframework.beans.factory.annotation.Autowired;

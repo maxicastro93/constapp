@@ -72,8 +72,8 @@
                                         <td th:text="${proveedor.telefono}" />
                                         <td th:text="${proveedor.rubro}" />
                                         <td>
+                                            <a th:href="@{/detalleProveedor(provId=${proveedor.id})}" class="btn btn-info">Detalle</a>
                                             <a th:href="@{/showUpdateProv(provId=${proveedor.id})}" class="btn btn-info">Modificar</a>
-
                                             <a th:href="@{/deleteProveedor(provId=${proveedor.id})}" class="btn btn-danger ml-2">Eliminar</a>
                                         </td>
                                     </tr>

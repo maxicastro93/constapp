@@ -16,4 +16,5 @@ public interface GastoDAO extends JpaRepository<Gasto, Long>{
     ArrayList<Gasto> findAllByOrderByIdDesc();
 
 
+
 }

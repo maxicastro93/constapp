@@ -3,6 +3,7 @@ package constApp.web.controllers;
 import constApp.web.DAO.ProveedorDAO;
 import constApp.web.DAO.GastoDAO;
 import constApp.web.models.Proveedor;
+import constApp.web.services.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,12 @@ public class ProveedorController {
     @Autowired
     private GastoDAO gastosRepo;
     @Autowired
-    private ProveedorDAO provRepo;
+    private ProveedorService provService;
 
     @GetMapping({"/proveedores"})
     public ModelAndView getAllProveedores() {
         ModelAndView mav = new ModelAndView("proveedores");
-        mav.addObject("proveedores", provRepo.findAll());
+        mav.addObject("proveedores", provService.getAllProv());
         return mav;
     }
 
@@ -35,17 +36,32 @@ public class ProveedorController {
 //        mav.addObject("proveedor", provRepo.findAll());
         return mav;
     }
+
+    @GetMapping("/detalleProveedor")
+    public ModelAndView detalleProveedor(@RequestParam Long provId) {
+        ModelAndView mav = new ModelAndView("detalle-proveedor");
+        Proveedor proveedor = provService.getProvById(provId);
+        mav.addObject("proveedor", proveedor);
+        mav.addObject("movimientos", proveedor.getGastosProveedor());
+        mav.addObject("acumulado", provService.totalGastadoPorProveedor(provId));
+        mav.addObject("gastosGrafico", provService.listGastosProveedor(provId));
+
+
+
+        return mav;
+    }
+
     @PostMapping("/saveProveedor")
     public String saveProv(@ModelAttribute Proveedor proveedor) throws ParseException {
 
-        provRepo.save(proveedor);
+        provService.saveProveedor(proveedor);
         return "redirect:/proveedores";
     }
 
     @GetMapping("/showUpdateProv")
     public ModelAndView showUpdateProv(@RequestParam Long provId) {
         ModelAndView mav = new ModelAndView("add-proveedor");
-        Proveedor proveedor = provRepo.findById(provId).get();
+        Proveedor proveedor = provService.getProvById(provId);
         mav.addObject("proveedor", proveedor);
 
         return mav;
@@ -53,7 +69,7 @@ public class ProveedorController {
 
     @GetMapping("/deleteProveedor")
     public String deleteProveedor(@RequestParam Long provId) {
-        provRepo.deleteById(provId);
+        provService.deleteProveedor(provId);
         return "redirect:/proveedores";
     }
 }
